@@ -1,0 +1,37 @@
+﻿<button type="button" id="btnModal" style="display:none" class="btn btn-primary" data-toggle="modal" data-target="#categoryModal">
+  Launch demo modal
+</button>
+
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add/Edit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-lg-3">Name</div>
+              <div class="col-lg-9 mb-4">
+                  <div class="form-group">
+                  <input id="txtName" class="form-control" type="text" placeholder="Please Enter Name" required />
+                  </div>
+              </div>
+               <div class="col-lg-3">Order Place</div>
+              <div class="col-lg-9">
+                  <div class="form-group">
+                  <input id="txtOrder" class="form-control" type="text" placeholder="Please Enter Order" required />
+                  </div>
+              </div>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

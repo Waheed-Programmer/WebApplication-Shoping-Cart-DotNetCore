@@ -8,7 +8,9 @@
             <h2 class="text-primary">Categories</h2>
         </div>
         <div class="col-6 text-end">
-            <a href="" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add New</a>
+            <a href="#" onclick="CreateNew(); return false;" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add New</a>
+            @Html.Partial("~/Views/Shared/_category.cshtml")
+
         </div>
     </div>
 </div>
@@ -27,5 +29,24 @@
   
   </tbody>
 </table>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+        })
+
+        function CreateNew(){
+            clearAll();
+            $('#categoryModal').modal('toggle');
+            //$('#btnModal').trigger('click');
+        }
+        function clearAll(){
+            $('#textName').val("");
+            $('#textOrder').val("");
+        }
+    </script>
+}
+
 
 
