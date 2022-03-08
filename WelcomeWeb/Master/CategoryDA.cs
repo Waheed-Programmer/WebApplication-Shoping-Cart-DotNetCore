@@ -19,9 +19,9 @@ namespace WelcomeWeb.Master
         {
             return Database.Categories.FirstOrDefault(x => x.CategoryId == Id);
         }
-        public string Remove(int Id)
+        public Category Remove(int Id)
         {
-            string Result = string.Empty;
+            var Result = string.Empty;
             var cat = Database.Categories.FirstOrDefault(c => c.CategoryId == Id);
             if(cat != null)
             {
@@ -29,11 +29,12 @@ namespace WelcomeWeb.Master
                 Database.SaveChanges();
                 Result = "Pass";
             }
-            return Result;
+            return cat;
         }
-        public string Save(Category tblCategory)
+        public Category Save(Category tblCategory)
         {
-            string Result = string.Empty;
+            var Result = string.Empty;
+            try { 
             var cat = Database.Categories.FirstOrDefault(c => c.CategoryId == tblCategory.CategoryId);
             if (cat != null)
             {
@@ -55,7 +56,11 @@ namespace WelcomeWeb.Master
                 Database.SaveChanges();
                 Result = "Pass";
             }
-            return Result;
+            }catch (Exception ex)
+            {
+                Result = ex.Message;
+            }
+            return tblCategory;
         }
     }
 }
