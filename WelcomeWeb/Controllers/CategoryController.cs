@@ -14,12 +14,33 @@ namespace WelcomeWeb.Controllers
         }
         public IActionResult Index()
         {
-           return View();
+            var list = Context.Categories.ToList();
+           return View(list);
         }
-        public JsonResult GetAll()
+        [HttpGet]
+        public IActionResult Create()
         {
-            List<Category> _list = new CategoryDA(Context).GetAll(); 
-            return Json(_list);
+             
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Category tbl)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Context.Categories.Add(tbl);    
+                    Context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception)
+            {
+
+                return View(tbl);
+            }
+            return View();
         }
         public JsonResult GetById(int Id)
         {

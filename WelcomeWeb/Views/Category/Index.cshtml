@@ -1,6 +1,7 @@
-﻿
+﻿@model IEnumerable<Category>
 @{
     ViewData["Title"] = "Index";
+   
 }
 
 <div class="container p-4">
@@ -9,7 +10,7 @@
             <h2 class="text-primary">Categories</h2>
         </div>
         <div class="col-6 text-end">
-            <a href="#"  class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add New</a>
+            <a asp-action="Create" asp-controller ="Category" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add New</a>
            @* @Html.Partial("~/Views/Shared/_category.cshtml")*@
 
         </div>
@@ -28,8 +29,19 @@
     </tr>
   </thead>
   <tbody>
-    
-  
+        @foreach(var item in Model)
+        {
+            <tr>
+            <td>@item.CategoryId</td>
+            <td>@item.CategoryName</td>
+            <td>@item.OrderPlace</td>
+            <td>@item.CreateDate</td>
+            <td>
+                <a asp-action="Create"  class="btn btn-success" asp-route-id="@item.CategoryId"><i class="fas fa-list-ul"></i>Edit</a>
+            </td>
+            </tr>
+        }
+
   </tbody>
 </table>
 
