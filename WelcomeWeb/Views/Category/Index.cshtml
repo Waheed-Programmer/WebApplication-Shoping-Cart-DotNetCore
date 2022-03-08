@@ -45,6 +45,33 @@
             $('#textName').val("");
             $('#textOrder').val("");
         }
+
+        //Function For Insert Data into Database
+        function save(){
+            var proceed = true;
+            var name = $('#textName').val();
+            var order = $('#textOrder').val();
+            if(name == ''){
+                
+                $('#textName').css('border-color', 'red');
+            }else
+            {
+                $('#textName').css('border-color', '#ccc');
+
+            }
+            if(order == ''){
+                
+                $('#textOrder').css('border-color', 'red');
+
+            }else{
+                $('#textOrder').css('border-color', '#ccc');
+
+            }
+            if(proceed){
+
+            }
+
+        }
     </script>
 }
 
