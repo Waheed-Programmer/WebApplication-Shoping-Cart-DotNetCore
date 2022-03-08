@@ -38,6 +38,7 @@ namespace WelcomeWeb.Master
             var cat = Database.Categories.FirstOrDefault(c => c.CategoryId == tblCategory.CategoryId);
             if (cat != null)
             {
+                cat.CategoryId = tblCategory.CategoryId;
                 cat.CategoryName = tblCategory.CategoryName;
                 cat.OrderPlace = tblCategory.OrderPlace;
                 cat.CreateDate = tblCategory.CreateDate;
@@ -48,6 +49,7 @@ namespace WelcomeWeb.Master
             {
                 Category c = new Category
                 {
+                    CategoryId = tblCategory.CategoryId,
                     CategoryName = tblCategory.CategoryName,
                     OrderPlace = tblCategory.OrderPlace,
                     CreateDate = tblCategory.CreateDate

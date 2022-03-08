@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Index";
 }
 
@@ -8,8 +9,8 @@
             <h2 class="text-primary">Categories</h2>
         </div>
         <div class="col-6 text-end">
-            <a href="#" onclick="CreateNew(); return false;" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add New</a>
-            @Html.Partial("~/Views/Shared/_category.cshtml")
+            <a href="#"  class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add New</a>
+           @* @Html.Partial("~/Views/Shared/_category.cshtml")*@
 
         </div>
     </div>
@@ -22,6 +23,8 @@
       <th scope="col">Name</th>
       <th scope="col">Order Replace</th>
       <th scope="col">Date Created</th>
+      <th scope="col">Action</th>
+
     </tr>
   </thead>
   <tbody>
@@ -36,40 +39,57 @@
             
         })
 
-        function CreateNew(){
-            clearAll();
-            $('#categoryModal').modal('toggle');
-            //$('#btnModal').trigger('click');
-        }
-        function clearAll(){
-            $('#textName').val("");
-            $('#textOrder').val("");
-        }
 
-        //Function For Insert Data into Database
-        function save(){
-            var proceed = true;
-            var name = $('#textName').val();
-            var order = $('#textOrder').val();
-            if(name == ''){
-                
-                $('#textName').css('border-color', 'red');
-            }else
-            {
-                $('#textName').css('border-color', '#ccc');
 
-            }
-            if(order == ''){
-                
-                $('#textOrder').css('border-color', 'red');
 
-            }else{
-                $('#textOrder').css('border-color', '#ccc');
 
-            }
-            if(proceed){
 
-            }
+
+
+
+
+
+        //function CreateNew(){
+        //    clearAll();
+        //    $('#categoryModal').modal('toggle');
+        //    //$('#btnModal').trigger('click');
+        //}
+        //function clearAll(){
+        //    $('#textName').val("");
+        //    $('#textOrder').val("");
+        //}
+
+        ////Function For Insert Data into Database
+        //function save(){
+        //    var proceed = true;
+        //    //var name = $('#textName').val();
+        //    //var order = $('#textOrder').val();
+        //    ViewModel = {                
+        //        CategoryName: $("#textName").val(),
+        //        OrderPlace: $("#textOrder").val()                
+        //    }
+        //    if(proceed){
+        //        debugger
+                    
+        //        $.ajax({
+        //           async: true,
+        //           type:'post',
+        //           url:'Category/Save',
+        //           data:JSON.stringify(ViewModel),
+        //           datatype: 'JSON',
+        //           contentType: 'application/json, charset=utf-8',
+        //           success(data){
+        //               if(data=='Pass'){
+        //                   alert('saved successfully')
+        //               }else{
+        //                   alert('Failed')
+        //               }
+        //           },
+        //           error(){
+
+        //           }
+        //        });
+        //    }
 
         }
     </script>
