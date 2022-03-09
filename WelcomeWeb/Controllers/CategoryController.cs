@@ -55,7 +55,7 @@ namespace WelcomeWeb.Controllers
                 return NotFound();
 
             }
-            return View();
+            return View(c);
         }
 
         [HttpPost]

@@ -37,11 +37,12 @@
             <td>@item.OrderPlace</td>
             <td>@item.CreateDate</td>
             <td>
-                <a asp-action="Create"  class="btn btn-success" asp-route-id="@item.CategoryId"><i class="fas fa-list-ul"></i>Edit</a>
-            </td>
+            <a asp-action="Edit" asp-controller ="Category" class="btn btn-success" asp-route-id="@item.CategoryId"><i class="bi bi-pencil-square"></i> Edit</a>
+            <a asp-action="Edit" asp-controller ="Category" class="btn btn-dangar" asp-route-id="@item.CategoryId"><i class="bi bi-pencil-square"></i> Delete</a>
+            
+        </td>
             </tr>
         }
-
   </tbody>
 </table>
 
