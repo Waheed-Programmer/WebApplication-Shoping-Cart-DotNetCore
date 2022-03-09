@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Index";   
 }
+ 
 
 <div class="container p-4">
     <div class= "row p-3">
@@ -46,66 +47,31 @@
 </table>
 
 @section scripts{
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>    
     <script type="text/javascript">
-        $(document).ready(function(){
-            
+        $(document).ready( function () {
+            $('#myTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'pageLength','copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+        } );
+        $(function(){
+            var save = '@TempData["save"]'
+            if(save!='') {
+                alertify.success(save);
+            }
+            var edit = '@TempData["edit"]'
+            if(edit!='') {
+                alertify.success(edit);
+            }
+            var del = '@TempData["delete"]'
+            if (del!='') {
+                alertify.error(del);
+            }
         })
-
-
-
-
-
-
-
-
-
-
-
-        //function CreateNew(){
-        //    clearAll();
-        //    $('#categoryModal').modal('toggle');
-        //    //$('#btnModal').trigger('click');
-        //}
-        //function clearAll(){
-        //    $('#textName').val("");
-        //    $('#textOrder').val("");
-        //}
-
-        ////Function For Insert Data into Database
-        //function save(){
-        //    var proceed = true;
-        //    //var name = $('#textName').val();
-        //    //var order = $('#textOrder').val();
-        //    ViewModel = {                
-        //        CategoryName: $("#textName").val(),
-        //        OrderPlace: $("#textOrder").val()                
-        //    }
-        //    if(proceed){
-        //        debugger
-                    
-        //        $.ajax({
-        //           async: true,
-        //           type:'post',
-        //           url:'Category/Save',
-        //           data:JSON.stringify(ViewModel),
-        //           datatype: 'JSON',
-        //           contentType: 'application/json, charset=utf-8',
-        //           success(data){
-        //               if(data=='Pass'){
-        //                   alert('saved successfully')
-        //               }else{
-        //                   alert('Failed')
-        //               }
-        //           },
-        //           error(){
-
-        //           }
-        //        });
-        //    }
-
-        }
     </script>
 }
-
 
 

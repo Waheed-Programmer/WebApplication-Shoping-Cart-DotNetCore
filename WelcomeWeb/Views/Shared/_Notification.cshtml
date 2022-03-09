@@ -1,25 +1,25 @@
 ﻿<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.js"></script>
+
+
+
 @if(TempData["Save"] !=null){
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.js">
 
-    toastr.success(@TempData["Save"])
-
+<script>
+    toastr.success('@TempData["Save"]')
 </script>
 
 }
 @if(TempData["Update"] !=null){
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.js">
 
-    toastr.success(@TempData["Save"])
-
+<script>
+    toastr.success('@TempData["Update"]')
 </script>
 
 }
 @if(TempData["error"] !=null){
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.js">
-
-    toastr.error(@TempData["Save"])
-
+<script>
+    toastr.error('@TempData["error"]')
 </script>
 
 }

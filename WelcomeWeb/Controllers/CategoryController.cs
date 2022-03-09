@@ -32,7 +32,7 @@ namespace WelcomeWeb.Controllers
                 {
                     Context.Categories.Add(tbl);    
                     Context.SaveChanges();
-                    TempData["Save"] = "Data Save Successfully!";
+                    TempData["save"] = "Data Save Successfully!";
                     return RedirectToAction("Index");
                 }
             }
@@ -68,7 +68,7 @@ namespace WelcomeWeb.Controllers
                 {
                     Context.Categories.Update(category);
                     Context.SaveChanges();
-                    TempData["Update"] = "Data Update Successfully!";
+                    TempData["edit"] = "Data Update Successfully!";
                     return RedirectToAction("Index");
                 }
             }
@@ -108,7 +108,7 @@ namespace WelcomeWeb.Controllers
                 }
                 Context.Categories.Remove(c);
                 Context.SaveChanges();
-                TempData["Delete"] = "Data Delete Successfully!";
+                TempData["delete"] = "Data Delete Successfully!";
             return RedirectToAction("Index");           
            
         }
