@@ -42,10 +42,40 @@ namespace WelcomeWeb.Controllers
             }
             return View();
         }
-        public JsonResult GetById(int Id)
+        [HttpGet]
+        public IActionResult Edit(int? Id)
         {
-            Category _list = new CategoryDA(Context).GetbyId(Id);
-            return Json(_list);
+            if(Id==null || Id == 0)
+            {
+                return NotFound();
+            }
+            var c = Context.Categories.Find(Id);
+            if (c == null)
+            {
+                return NotFound();
+
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Context.Categories.Update(category);
+                    Context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception)
+            {
+
+                return View(category);
+            }
+            return RedirectToAction("Index");   
         }
         public JsonResult Remove(string Id)
         {
