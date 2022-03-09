@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WelcomeWeb.Data;
-using WelcomeWeb.Master;
-using WelcomeWeb.Models;
+using MyApp.DataAccessLayer;
+using MyApp.Models;
+
+
+
 
 namespace WelcomeWeb.Controllers
 {

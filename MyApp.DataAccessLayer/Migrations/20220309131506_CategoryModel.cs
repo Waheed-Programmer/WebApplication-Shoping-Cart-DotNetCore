@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace WelcomeWeb.Migrations
+namespace MyApp.DataAccessLayer.Migrations
 {
-    public partial class categoryModel : Migration
+    public partial class CategoryModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WelcomeWeb.Models;
+using MyApp.Models;
 
-namespace WelcomeWeb.Data
+
+namespace MyApp.DataAccessLayer
 {
     public class ApplicationDbContext:DbContext
     {
