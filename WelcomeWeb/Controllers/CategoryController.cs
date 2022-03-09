@@ -77,16 +77,37 @@ namespace WelcomeWeb.Controllers
             }
             return RedirectToAction("Index");   
         }
-        public JsonResult Remove(string Id)
+
+        [HttpGet]
+        public IActionResult Delete(int? Id)
         {
-            Category _list = new CategoryDA(Context).Remove(Convert.ToInt32(Id));
-            return Json(_list);
+            if (Id == null || Id == 0)
+            {
+                return NotFound();
+            }
+            var c = Context.Categories.Find(Id);
+            if (c == null)
+            {
+                return NotFound();
+
+            }
+            return View(c);
         }
 
-        public JsonResult Save(Category category)
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteData(int? Id)
         {
-            Category _list = new CategoryDA(Context).Save(category);
-            return Json(_list); 
+           
+                var c = Context.Categories.Find(Id);
+
+                if (c==null)
+                {
+                    return NotFound();
+                }
+                Context.Categories.Remove(c);
+                Context.SaveChanges();
+                return RedirectToAction("Index");           
+           
         }
 
     }

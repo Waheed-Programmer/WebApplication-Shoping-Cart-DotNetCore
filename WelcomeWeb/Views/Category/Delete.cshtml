@@ -1,0 +1,37 @@
+﻿@model WelcomeWeb.Models.Category
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<h1>Delete</h1>
+
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CategoryId" />
+            <div class="form-group">
+                <label asp-for="CategoryName" class="control-label"></label>
+                <input disabled asp-for="CategoryName" class="form-control" />
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderPlace" class="control-label"></label>
+                <input disabled asp-for="OrderPlace" class="form-control" /><br />
+                <span asp-validation-for="OrderPlace" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-Danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
