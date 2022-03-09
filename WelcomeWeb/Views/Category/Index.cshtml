@@ -49,14 +49,7 @@
 @section scripts{
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>    
     <script type="text/javascript">
-        $(document).ready( function () {
-            $('#myTable').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'pageLength','copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            });
-        } );
+       
         $(function(){
             var save = '@TempData["save"]'
             if(save!='') {
@@ -64,11 +57,11 @@
             }
             var edit = '@TempData["edit"]'
             if(edit!='') {
-                alertify.success(edit);
+                alertify.warning(edit);
             }
             var del = '@TempData["delete"]'
             if (del!='') {
-                alertify.error(del);
+                alertify.warning(del);
             }
         })
     </script>
