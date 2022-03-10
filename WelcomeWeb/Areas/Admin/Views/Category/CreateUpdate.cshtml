@@ -1,0 +1,46 @@
+﻿@model MyApp.Models.ViewModel.CategoryVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<h1>@((Model.Category==null || Model.Category.CategoryId ==0)?"Create":"Update")Category</h1>
+
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="CreateUpdate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Category.CategoryId" />
+            <div class="form-group">
+                <label asp-for="Category.CategoryName" class="control-label"></label>
+                <input asp-for="Category.CategoryName" class="form-control" />
+                <span asp-validation-for="Category.CategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category.OrderPlace" class="control-label"></label>
+                <input asp-for="Category.OrderPlace" class="form-control" /><br />
+                <span asp-validation-for="Category.OrderPlace" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                @if (Model.Category == null || Model.Category.CategoryId == 0)
+                {
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    
+                }
+                else
+                {
+                    <input type="submit" value="Update" class="btn btn-primary" />
+
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

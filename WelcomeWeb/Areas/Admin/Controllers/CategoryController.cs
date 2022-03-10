@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyApp.DataAccessLayer.Infrastructure.IRepository;
 using MyApp.Models;
+using MyApp.Models.ViewModel;
 
 namespace WelcomeWeb.Controllers
 {
@@ -18,49 +19,56 @@ namespace WelcomeWeb.Controllers
            return View(list);
         }
         [HttpGet]
-        public IActionResult Create()
-        {
+        //public IActionResult Create()
+        //{
              
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Create(Category tbl)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    _unitofWork.Category.Add(tbl);    
-                    _unitofWork.Save();
-                    TempData["save"] = "Data Save Successfully!";
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (Exception)
-            {
+        //    return View();
+        //}
+        //[HttpPost]
+        //public IActionResult Create(Category tbl)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            _unitofWork.Category.Add(tbl);    
+        //            _unitofWork.Save();
+        //            TempData["save"] = "Data Save Successfully!";
+        //            return RedirectToAction("Index");
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
 
-                return View(tbl);
-            }
-            return View();
-        }
+        //        return View(tbl);
+        //    }
+        //    return View();
+        //}
         [HttpGet]
-        public IActionResult Edit(int? Id)
+        public IActionResult CreateUpdate(int? Id)
         {
+            CategoryVM cat = new CategoryVM();
             if(Id==null || Id == 0)
             {
-                return NotFound();
+                return View(cat);
             }
-            var c = _unitofWork.Category.GetT(m => m.CategoryId == Id);
-            if (c == null)
+            else
             {
-                return NotFound();
+                var c = _unitofWork.Category.GetT(m => m.CategoryId == Id);
+                if (c == null)
+                {
+                    return NotFound();
 
-            }
-            return View(c);
+                }
+                else
+                {
+                    return View(c);
+                }
+            }           
         }
 
         [HttpPost]
-        public IActionResult Edit(Category category)
+        public IActionResult CreateUpdate(Category category)
         {
             try
             {
