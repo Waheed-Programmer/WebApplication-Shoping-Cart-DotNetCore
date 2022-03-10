@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyApp.DataAccessLayer;
 using MyApp.DataAccessLayer.Infrastructure.IRepository;
 using MyApp.Models;
-
-
-
 
 namespace WelcomeWeb.Controllers
 {
@@ -17,7 +13,7 @@ namespace WelcomeWeb.Controllers
         }
         public IActionResult Index()
         {
-            var list = _unitofWork.Category.GetAll();
+           var list = _unitofWork.Category.GetAll();
            return View(list);
         }
         [HttpGet]
@@ -101,8 +97,7 @@ namespace WelcomeWeb.Controllers
 
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteData(int? Id)
-        {
-           
+        {           
                 var c = _unitofWork.Category.GetT(m=>m.CategoryId==Id);
 
                 if (c==null)
