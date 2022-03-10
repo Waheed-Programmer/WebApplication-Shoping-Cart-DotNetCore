@@ -4,6 +4,7 @@ using MyApp.Models;
 
 namespace WelcomeWeb.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitofWork _unitofWork;
