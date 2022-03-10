@@ -9,6 +9,7 @@ namespace MyApp.DataAccessLayer.Infrastructure.IRepository
 {
     public interface IRepository<T> where T: class
     {
+        //this interface is show that all the generics reused method 
         IEnumerable<T> GetAll();
         T GetT(Expression<Func<T, bool>> predicate);
         void add(T entity);
