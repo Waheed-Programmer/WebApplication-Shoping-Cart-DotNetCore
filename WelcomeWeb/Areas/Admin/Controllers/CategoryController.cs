@@ -15,35 +15,11 @@ namespace WelcomeWeb.Controllers
         }
         public IActionResult Index()
         {
-           var list = _unitofWork.Category.GetAll();
-           return View(list);
+           CategoryVM categoryvm = new CategoryVM();
+           categoryvm.categories = _unitofWork.Category.GetAll();
+           return View(categoryvm);
         }
-        [HttpGet]
-        //public IActionResult Create()
-        //{
-             
-        //    return View();
-        //}
-        //[HttpPost]
-        //public IActionResult Create(Category tbl)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            _unitofWork.Category.Add(tbl);    
-        //            _unitofWork.Save();
-        //            TempData["save"] = "Data Save Successfully!";
-        //            return RedirectToAction("Index");
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        return View(tbl);
-        //    }
-        //    return View();
-        //}
+               
         [HttpGet]
         public IActionResult CreateUpdate(int? Id)
         {
@@ -54,36 +30,45 @@ namespace WelcomeWeb.Controllers
             }
             else
             {
-                var c = _unitofWork.Category.GetT(m => m.CategoryId == Id);
-                if (c == null)
+                cat.Category = _unitofWork.Category.GetT(m => m.CategoryId == Id);
+                if (cat.Category == null)
                 {
                     return NotFound();
 
                 }
                 else
                 {
-                    return View(c);
+                    return View(cat);
                 }
             }           
         }
 
         [HttpPost]
-        public IActionResult CreateUpdate(Category category)
+        public IActionResult CreateUpdate(CategoryVM vm)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _unitofWork.Category.Update(category);
+                    if (vm.Category.CategoryId == 0)
+                    {
+                        _unitofWork.Category.Add(vm.Category);
+
+                    }
+                    else
+                    {
+                        _unitofWork.Category.Update(vm.Category);
+
+                    }
                     _unitofWork.Save();
-                    TempData["edit"] = "Data Update Successfully!";
+                    TempData["edit"] = "Data Save Successfully!";
                     return RedirectToAction("Index");
                 }
             }
             catch (Exception)
             {
 
-                return View(category);
+                return View(vm);
             }
             return RedirectToAction("Index");   
         }

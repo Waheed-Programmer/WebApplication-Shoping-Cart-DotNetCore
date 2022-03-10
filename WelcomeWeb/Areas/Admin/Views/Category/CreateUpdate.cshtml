@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <form asp-action="CreateUpdate">
+        <form method="post" asp-action="CreateUpdate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Category.CategoryId" />
             <div class="form-group">
@@ -44,3 +44,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}
