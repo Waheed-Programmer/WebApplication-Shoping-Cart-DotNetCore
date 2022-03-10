@@ -12,7 +12,7 @@ namespace MyApp.DataAccessLayer.Infrastructure.IRepository
         //this interface is show that all the generics reused method 
         IEnumerable<T> GetAll();
         T GetT(Expression<Func<T, bool>> predicate);
-        void add(T entity);
+        void Add(T entity);
         void Delete(T entity);
         void DeleteRange(IEnumerable<T> entity);
     }

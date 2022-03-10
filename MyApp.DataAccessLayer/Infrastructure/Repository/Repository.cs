@@ -19,7 +19,7 @@ namespace MyApp.DataAccessLayer.Infrastructure.Repository
             _dbSet = _context.Set<T>();    
         }
 
-        public void add(T entity)
+        public void Add(T entity)
         {
             _dbSet.Add(entity);
         }

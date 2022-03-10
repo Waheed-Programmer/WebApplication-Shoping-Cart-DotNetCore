@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyApp.DataAccessLayer;
+using MyApp.DataAccessLayer.Infrastructure.IRepository;
 using MyApp.Models;
 
 
@@ -9,14 +10,14 @@ namespace WelcomeWeb.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext Context;
-        public CategoryController(ApplicationDbContext Db)
+        private readonly IUnitofWork _unitofWork;
+        public CategoryController(IUnitofWork unitofWork)
         {
-            Context = Db; 
+            _unitofWork = unitofWork; 
         }
         public IActionResult Index()
         {
-            var list = Context.Categories.ToList();
+            var list = _unitofWork.Category.GetAll();
            return View(list);
         }
         [HttpGet]
@@ -32,8 +33,8 @@ namespace WelcomeWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Context.Categories.Add(tbl);    
-                    Context.SaveChanges();
+                    _unitofWork.Category.Add(tbl);    
+                    _unitofWork.Save();
                     TempData["save"] = "Data Save Successfully!";
                     return RedirectToAction("Index");
                 }
@@ -52,7 +53,7 @@ namespace WelcomeWeb.Controllers
             {
                 return NotFound();
             }
-            var c = Context.Categories.Find(Id);
+            var c = _unitofWork.Category.GetT(m => m.CategoryId == Id);
             if (c == null)
             {
                 return NotFound();
@@ -68,8 +69,8 @@ namespace WelcomeWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Context.Categories.Update(category);
-                    Context.SaveChanges();
+                    _unitofWork.Category.Update(category);
+                    _unitofWork.Save();
                     TempData["edit"] = "Data Update Successfully!";
                     return RedirectToAction("Index");
                 }
@@ -89,7 +90,7 @@ namespace WelcomeWeb.Controllers
             {
                 return NotFound();
             }
-            var c = Context.Categories.Find(Id);
+            var c = _unitofWork.Category.GetT(m=>m.CategoryId == Id);
             if (c == null)
             {
                 return NotFound();
@@ -102,14 +103,14 @@ namespace WelcomeWeb.Controllers
         public IActionResult DeleteData(int? Id)
         {
            
-                var c = Context.Categories.Find(Id);
+                var c = _unitofWork.Category.GetT(m=>m.CategoryId==Id);
 
                 if (c==null)
                 {
                     return NotFound();
                 }
-                Context.Categories.Remove(c);
-                Context.SaveChanges();
+                _unitofWork.Category.Delete(c);
+                _unitofWork.Save();
                 TempData["delete"] = "Data Delete Successfully!";
             return RedirectToAction("Index");           
            

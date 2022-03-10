@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyApp.DataAccessLayer;
+using MyApp.DataAccessLayer.Infrastructure.IRepository;
+using MyApp.DataAccessLayer.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 var app = builder.Build();
+//Add DataIndependency Services Methods
+builder.Services.AddScoped<IUnitofWork, UnitOfWork>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
