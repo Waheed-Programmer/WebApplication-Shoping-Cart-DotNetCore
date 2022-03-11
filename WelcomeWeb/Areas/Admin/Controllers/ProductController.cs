@@ -10,9 +10,11 @@ namespace WelcomeWeb.Controllers
     public class ProductController : Controller
     {
         private readonly IUnitofWork _unitofWork;
-        public ProductController(IUnitofWork unitofWork)
+        private IWebHostEnvironment _webHostEnvironment;
+        public ProductController(IUnitofWork unitofWork , IWebHostEnvironment webHostEnvironment)
         {
             _unitofWork = unitofWork; 
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -56,23 +58,35 @@ namespace WelcomeWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUpdate(ProductVM vm)
+        public IActionResult CreateUpdate(ProductVM vm , IFormFile file)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    string fileName = string.Empty;
+                    if (file != null)
+                    {
+                        string uploadDir = Path.Combine(_webHostEnvironment.WebRootPath, "ProductImage");
+                        fileName = Guid.NewGuid().ToString()+"-"+file.FileName;
+                        string filePath = Path.Combine(uploadDir, fileName);
+                        using(var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            file.CopyTo(fileStream);    
+                        }
+                        vm.Product.ImgUrl = @"\ProductImage\" + fileName;
+                    }
                     if (vm.Product.ProductId == 0)
                     {
                         _unitofWork.Product.Add(vm.Product);
-                        TempData["save"] = "Data Save Successfully!";
+                        TempData["save"] = "Product Save Successfully!";
 
 
                     }
                     else
                     {
                         _unitofWork.Product.Update(vm.Product);
-                        TempData["edit"] = "Data Update Successfully!";
+                        TempData["edit"] = "Product Update Successfully!";
 
 
                     }

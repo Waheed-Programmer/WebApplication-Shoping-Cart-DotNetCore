@@ -16,29 +16,29 @@
             <div class="form-group">
                 <label asp-for="Product.ProductName" class="control-label">Product Name</label>
                 <input asp-for="Product.ProductName" class="form-control" />
-                <span asp-validation-for="Product.ProductName" class="text-danger"></span></ br>
-            </div>
+                <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+            </div></ br>
             <div class="form-group">
                 <label asp-for="Product.CategoryId" class="control-label">Category</label>
-                <select asp-for="Product.CategoryId" asp-items = "@Model.Categories" class="form-control">
+                <select asp-for="Product.CategoryId" asp-items = "@Model.Categories" class="form-control">--Select Category--
                 <option disabled>--Select Category--</option>
                 </select>
                 <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
-            </div>
+            </div></ br>
             <div class="form-group">
                 <label asp-for="Product.Price" class="control-label"></label>
                 <input asp-for="Product.Price" class="form-control" />
-                <span asp-validation-for="Product.Price" class="text-danger"></span></ br>
-            </div>
+                <span asp-validation-for="Product.Price" class="text-danger"></span>
+            </div></ br>
             <div class="form-group">
                 <label asp-for="Product.ImgUrl" class="control-label">Select Image </label>
-                <input type="file" id="ImageFile" name="file" class="form-select" /><br />
-            </div>
+                <input type="file" id="ImageFile" name="file" class="form-select" />
+            </div></ br>
             <div class="form-group">
                 <label asp-for="Product.Description" class="control-label"></label>
                 <textarea asp-for="Product.Description" class="form-control"></textarea>
-                <span asp-validation-for="Product.Description" class="text-danger"></span></ br>
-            </div>
+                <span asp-validation-for="Product.Description" class="text-danger"></span>
+            </div></ br>
             
              
             <div class="form-group">

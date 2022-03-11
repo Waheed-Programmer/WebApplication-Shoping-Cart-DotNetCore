@@ -12,8 +12,8 @@ using MyApp.DataAccessLayer;
 namespace MyApp.DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220310061617_ProductModel")]
-    partial class ProductModel
+    [Migration("20220311132142_ModelProducts")]
+    partial class ModelProducts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
