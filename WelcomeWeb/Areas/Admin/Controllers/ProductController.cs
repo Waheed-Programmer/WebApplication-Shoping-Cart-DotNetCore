@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyApp.DataAccessLayer.Infrastructure.IRepository;
 using MyApp.Models;
 using MyApp.Models.ViewModel;
@@ -15,9 +16,9 @@ namespace WelcomeWeb.Controllers
         }
         public IActionResult Index()
         {
-            ProductVM Productvm = new ProductVM();
-            Productvm.Products = _unitofWork.Product.GetAll();
-           return View(Productvm);
+            //ProductVM Productvm = new ProductVM();
+            //Productvm.Products = _unitofWork.Product.GetAll();
+           return View();
         }
                
         [HttpGet]
@@ -27,7 +28,7 @@ namespace WelcomeWeb.Controllers
             {
                 Product = new(),
                 Categories = _unitofWork.Category.GetAll().Select(x =>
-                new System.Web.WebPages.Html.SelectListItem()
+                new SelectListItem()
                 {
                     Text = x.CategoryName,
                     Value = x.CategoryId.ToString()
