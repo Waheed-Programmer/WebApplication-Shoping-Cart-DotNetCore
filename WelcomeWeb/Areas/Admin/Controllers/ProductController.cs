@@ -16,22 +16,22 @@ namespace WelcomeWeb.Controllers
         public IActionResult Index()
         {
             ProductVM Productvm = new ProductVM();
-            Productvm.products = _unitofWork.Product.GetAll();
+            Productvm.Products = _unitofWork.Product.GetAll();
            return View(Productvm);
         }
                
         [HttpGet]
         public IActionResult CreateUpdate(int? Id)
         {
-            CategoryVM cat = new CategoryVM();
+            ProductVM cat = new ProductVM();
             if(Id==null || Id == 0)
             {
                 return View(cat);
             }
             else
             {
-                cat.Category = _unitofWork.Category.GetT(m => m.CategoryId == Id);
-                if (cat.Category == null)
+                cat.Product = _unitofWork.Product.GetT(m => m.ProductId == Id);
+                if (cat.Product == null)
                 {
                     return NotFound();
 
@@ -44,22 +44,22 @@ namespace WelcomeWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUpdate(CategoryVM vm)
+        public IActionResult CreateUpdate(ProductVM vm)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (vm.Category.CategoryId == 0)
+                    if (vm.Product.ProductId == 0)
                     {
-                        _unitofWork.Category.Add(vm.Category);
+                        _unitofWork.Product.Add(vm.Product);
                         TempData["save"] = "Data Save Successfully!";
 
 
                     }
                     else
                     {
-                        _unitofWork.Category.Update(vm.Category);
+                        _unitofWork.Product.Update(vm.Product);
                         TempData["edit"] = "Data Update Successfully!";
 
 
@@ -83,7 +83,7 @@ namespace WelcomeWeb.Controllers
             {
                 return NotFound();
             }
-            var c = _unitofWork.Category.GetT(m=>m.CategoryId == Id);
+            var c = _unitofWork.Product.GetT(m=>m.ProductId == Id);
             if (c == null)
             {
                 return NotFound();
@@ -95,13 +95,13 @@ namespace WelcomeWeb.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteData(int? Id)
         {           
-                var c = _unitofWork.Category.GetT(m=>m.CategoryId==Id);
+                var c = _unitofWork.Product.GetT(m=>m.CategoryId==Id);
 
                 if (c==null)
                 {
                     return NotFound();
                 }
-                _unitofWork.Category.Delete(c);
+                _unitofWork.Product.Delete(c);
                 _unitofWork.Save();
                 TempData["delete"] = "Data Delete Successfully!";
             return RedirectToAction("Index");           

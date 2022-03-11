@@ -9,6 +9,6 @@ namespace MyApp.Models.ViewModel
     public class ProductVM
     {
         public Product Product { get; set; } = new Product();
-        public IEnumerable<Product> products { get; set; } = new List<Product>();
+        public IEnumerable<Product> Products { get; set; } = new List<Product>();
     }
 }

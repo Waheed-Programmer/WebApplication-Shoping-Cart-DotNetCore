@@ -17,7 +17,6 @@ namespace MyApp.Models
         public string Description { get; set; }
         [Required]
         public double Price { get; set; }
-        [Required]
         public string ImgUrl { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
