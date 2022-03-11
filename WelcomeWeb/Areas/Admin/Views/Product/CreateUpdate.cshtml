@@ -28,7 +28,13 @@
                 <input asp-for="Product.Price" class="form-control" /><br />
                 <span asp-validation-for="Product.Price" class="text-danger"></span>
             </div>
-            
+             <div class="form-group">
+                <label asp-for="Product.CategoryId" class="control-label"></label>
+                <select asp-for="Product.CategoryId" asp-items = "@Model.Categories as IEnumerable<SelectListItem>" class="form-control">
+                <option disabled>--Select Category--</option>
+                </select>
+                <span asp-validation-for="Product.Price" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 @if (Model.Product == null || Model.Product.ProductId == 0)
                 {
