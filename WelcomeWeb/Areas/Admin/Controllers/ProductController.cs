@@ -23,7 +23,18 @@ namespace WelcomeWeb.Controllers
         [HttpGet]
         public IActionResult CreateUpdate(int? Id)
         {
-            ProductVM cat = new ProductVM();
+            ProductVM cat = new ProductVM()
+            {
+                Product = new(),
+                Categories = _unitofWork.Category.GetAll().Select(x =>
+                new System.Web.WebPages.Html.SelectListItem()
+                {
+                    Text = x.CategoryName,
+                    Value = x.CategoryId.ToString()
+                    
+                })
+                
+            };
             if(Id==null || Id == 0)
             {
                 return View(cat);
