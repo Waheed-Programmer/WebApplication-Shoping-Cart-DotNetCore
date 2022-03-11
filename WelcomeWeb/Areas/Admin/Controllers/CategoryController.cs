@@ -53,15 +53,18 @@ namespace WelcomeWeb.Controllers
                     if (vm.Category.CategoryId == 0)
                     {
                         _unitofWork.Category.Add(vm.Category);
+                        TempData["save"] = "Data Save Successfully!";
+
 
                     }
                     else
                     {
                         _unitofWork.Category.Update(vm.Category);
+                        TempData["edit"] = "Data Update Successfully!";
+
 
                     }
                     _unitofWork.Save();
-                    TempData["edit"] = "Data Save Successfully!";
                     return RedirectToAction("Index");
                 }
             }
