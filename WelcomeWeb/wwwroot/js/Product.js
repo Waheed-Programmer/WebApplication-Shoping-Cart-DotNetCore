@@ -1,5 +1,4 @@
 ﻿var dTable;
-
 $(document).ready(function () {
     dTable = $('#myTable').DataTable({
         "ajax": {
@@ -54,7 +53,7 @@ function DeleteProduct(url) {
                     }
                     else
                     {
-                        alertify.warning(data.message);
+                        alertify.success(data.message);
 
                     }
                 }

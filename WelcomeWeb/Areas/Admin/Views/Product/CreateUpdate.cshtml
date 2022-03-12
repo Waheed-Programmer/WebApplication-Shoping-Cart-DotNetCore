@@ -66,6 +66,12 @@
     <partial name="_ValidationScriptsPartial"/>
 
     <script>
+
+
+  tinymce.init({
+    selector: 'textarea'
+  });
+
         function Validate(){
             if(document.getElementById("ImageFile").value==""){
               Swal.fire({
