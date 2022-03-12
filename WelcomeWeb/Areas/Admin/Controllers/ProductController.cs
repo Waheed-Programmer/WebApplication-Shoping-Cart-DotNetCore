@@ -19,7 +19,7 @@ namespace WelcomeWeb.Controllers
         #region All products get throug json data
         public IActionResult AllProduct()
         {
-            var products = _unitofWork.Product.GetAll();
+            var products = _unitofWork.Product.GetAll(includeProperties:"Category");
             return Json(new { data = products });
         }
         #endregion
