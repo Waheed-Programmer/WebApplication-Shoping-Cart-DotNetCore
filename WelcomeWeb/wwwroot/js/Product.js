@@ -3,11 +3,17 @@
 $(document).ready(function () {
     dTable = $('#myTable').DataTable({
         "ajax": {
-            url:"Admin/Product/AllProduct"
+            "url": "/Admin/Product/AllProduct",
+            "type": "GET",
+            "datatype": "json"
         },
-        "columns": {
-            "data": ""
-        }
+        "columns": [
+            { "data": "productId" },
+            { "data": "productName" },
+            { "data": "description" },
+            { "data": "price" }
+        
+        ]
 
 
     });
