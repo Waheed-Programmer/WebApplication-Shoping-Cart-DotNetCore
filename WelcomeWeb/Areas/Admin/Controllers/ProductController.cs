@@ -110,7 +110,7 @@ namespace WelcomeWeb.Controllers
 
                 return View(vm);
             }
-            return RedirectToAction("Index");   
+            return View(vm);   
         }
 
         

@@ -17,7 +17,7 @@ $(document).ready(function () {
                 "render": function (data) {
                     return `                    
                     <a href="/Admin/Product/CreateUpdate?id=${data}"><i class="bi bi-pencil-square"></i></a>
-                    <a onclick=DeleteProduct("/Admin/Product/Delete"${data})><i class="bi bi-trash3-fill"></i></a>
+                    <a onclick=DeleteProduct("/Admin/Product/Delete/${data}")><i class="bi bi-trash3-fill"></i></a>
                        
                     `
                 }
@@ -27,12 +27,10 @@ $(document).ready(function () {
     });
 });
 
-function Delete(url) {
-
-
+function DeleteProduct(url) {
     Swal.fire({
         title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        text: "You want to Delete this!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -50,9 +48,12 @@ function Delete(url) {
                         //alertify.success(data.message);
                         Swal.fire(
                             'Deleted!',
-                            data.message
+                            data.message,
+                            'success'
                         )
-                    } else {
+                    }
+                    else
+                    {
                         alertify.warning(data.message);
 
                     }
