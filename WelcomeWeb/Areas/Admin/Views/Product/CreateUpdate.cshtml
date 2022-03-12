@@ -13,6 +13,7 @@
         <form method="post" asp-action="CreateUpdate" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Product.ProductId" />
+            <input type="hidden" asp-for = "Product.ImgUrl"/>
             <div class="form-group">
                 <label asp-for="Product.ProductName" class="control-label">Product Name</label>
                 <input asp-for="Product.ProductName" class="form-control" />

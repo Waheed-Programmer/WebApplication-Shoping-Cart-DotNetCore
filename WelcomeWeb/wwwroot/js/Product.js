@@ -8,13 +8,12 @@ $(document).ready(function () {
             "datatype": "json"
         },
         "columns": [
-            { "data": "productId" },
             { "data": "productName" },
             { "data": "description" },
             { "data": "price" },
             { "data": "category.categoryName" },
             {
-                "data": "id",
+                "data": "productId",
                 "render": function (data) {
                     return `                    
                     <a href="/Admin/Product/CreateUpdate?id=${data}"><i class="bi bi-pencil-square"></i></a>

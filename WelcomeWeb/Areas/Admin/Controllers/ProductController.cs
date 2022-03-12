@@ -29,7 +29,7 @@ namespace WelcomeWeb.Controllers
         }
                
         [HttpGet]
-        public IActionResult CreateUpdate(int? Id)
+        public IActionResult CreateUpdate(int? id)
         {
             ProductVM cat = new ProductVM()
             {
@@ -43,13 +43,13 @@ namespace WelcomeWeb.Controllers
                 })
                 
             };
-            if(Id==null || Id == 0)
+            if(id==null || id == 0)
             {
                 return View(cat);
             }
             else
             {
-                cat.Product = _unitofWork.Product.GetT(m => m.ProductId == Id);
+                cat.Product = _unitofWork.Product.GetT(m => m.ProductId == id);
                 if (cat.Product == null)
                 {
                     return NotFound();
@@ -75,6 +75,14 @@ namespace WelcomeWeb.Controllers
                         string uploadDir = Path.Combine(_webHostEnvironment.WebRootPath, "ProductImage");
                         fileName = Guid.NewGuid().ToString()+"-"+file.FileName;
                         string filePath = Path.Combine(uploadDir, fileName);
+                        if(vm.Product.ImgUrl != null)
+                        {
+                            var OldpathImage = Path.Combine(_webHostEnvironment.WebRootPath, vm.Product.ImgUrl.TrimStart('\\'));
+                            if (System.IO.File.Exists(OldpathImage))
+                            {
+                                System.IO.File.Delete(OldpathImage);
+                            }
+                        }
                         using(var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             file.CopyTo(fileStream);    
@@ -85,8 +93,6 @@ namespace WelcomeWeb.Controllers
                     {
                         _unitofWork.Product.Add(vm.Product);
                         TempData["save"] = "Product Save Successfully!";
-
-
                     }
                     else
                     {
