@@ -16,10 +16,15 @@ namespace WelcomeWeb.Controllers
             _unitofWork = unitofWork; 
             _webHostEnvironment = webHostEnvironment;
         }
-        public IActionResult Index()
+        #region All products get throug json data
+        public IActionResult AllProduct()
         {
-            //ProductVM Productvm = new ProductVM();
-            //Productvm.Products = _unitofWork.Product.GetAll();
+            var products = _unitofWork.Product.GetAll();
+            return Json(new { data = products });
+        }
+        #endregion
+        public IActionResult Index()
+        {           
            return View();
         }
                
