@@ -14,13 +14,11 @@ $(document).ready(function () {
             { "data": "price" },
             { "data": "category.categoryName" },
             {
-                "data": "productId",
+                "data": "id",
                 "render": function (data) {
                     return `                    
-                    <a href="/Admin/Product/CreateUpdate?productId=${data}"><i class="bi bi-pencil-square"></i></a>
-                      
-                    <a onclick=Delete('/JqueryCrud/DeleteByDataApiJson?productId=' + ${ data })><i class="bi bi-trash3-fill"></i></a >
-                       
+                    <a href="/Admin/Product/CreateUpdate?id=${data}"><i class="bi bi-pencil-square"></i></a>
+                    <a onclick=Delete('/JqueryCrud/DeleteByDataApiJson?id='+${data})><i class="bi bi-trash3-fill"></i></a>
                        
                     `
                 }
