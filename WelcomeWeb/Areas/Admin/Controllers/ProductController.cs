@@ -113,36 +113,31 @@ namespace WelcomeWeb.Controllers
             return RedirectToAction("Index");   
         }
 
-        [HttpGet]
+        
+        [HttpDelete]
         public IActionResult Delete(int? Id)
-        {
-            if (Id == null || Id == 0)
-            {
-                return NotFound();
-            }
-            var c = _unitofWork.Product.GetT(m=>m.ProductId == Id);
-            if (c == null)
-            {
-                return NotFound();
+        {           
+            var c = _unitofWork.Product.GetT(m=>m.CategoryId==Id);
 
+            if (c==null)
+            {
+                return Json(new {success =false, message="Data has not been Fetch"});
+             }
+            else
+            {
+            var OldpathImage = Path.Combine(_webHostEnvironment.WebRootPath, c.ImgUrl.TrimStart('\\'));
+            if (System.IO.File.Exists(OldpathImage))
+            {
+                System.IO.File.Delete(OldpathImage);
             }
-            return View(c);
+            _unitofWork.Product.Delete(c);
+            _unitofWork.Save();
+            return Json(new { success = true, message = "Data has been Deleted" });
+
         }
 
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteData(int? Id)
-        {           
-                var c = _unitofWork.Product.GetT(m=>m.CategoryId==Id);
 
-                if (c==null)
-                {
-                    return NotFound();
-                }
-                _unitofWork.Product.Delete(c);
-                _unitofWork.Save();
-                TempData["delete"] = "Data Delete Successfully!";
-            return RedirectToAction("Index");           
-           
+
         }
 
     }
