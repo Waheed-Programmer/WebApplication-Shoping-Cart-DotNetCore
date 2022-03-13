@@ -4,10 +4,12 @@
     ViewData["Title"] = "Home Page";
 }
 <br /><br />
+<div class ="row">
 @foreach (var item in Model)
 {
-    <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="@item.ImgUrl" alt="Card image cap">
+
+    <div class="card ml-lg-3" style="width: 18rem;">
+  <img class="card-img-top" src="@item.ImgUrl" height=50px; width=50px; alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">@item.ProductName</h5>
     <p class="card-text">Price:@item.Price.ToString("0.00")</p>
@@ -15,4 +17,5 @@
   </div>
 </div>
 }
+</div>
 
