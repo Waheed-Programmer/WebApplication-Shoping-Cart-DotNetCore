@@ -28,8 +28,12 @@ namespace WelcomeWeb.Controllers
 
         public IActionResult Detail(int? id)
         {
-            Product Product = _unitofWork.Product.GetT(x=>x.ProductId==id,includeProperties: "Category");
-            return View(Product);
+            Cart cart = new Cart()
+            {
+             Product = _unitofWork.Product.GetT(x => x.ProductId == id, includeProperties: "Category"),
+             Count = 1
+            };
+            return View(cart);
         }
 
         public IActionResult Privacy()
