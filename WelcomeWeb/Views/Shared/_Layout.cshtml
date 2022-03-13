@@ -21,6 +21,10 @@
 
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
+         <form class="d-flex">
+        <input class="form-control me-sm-2" type="text" placeholder="Search">
+        <button class="btn btn-outline-secondary text-white my-2 my-sm-0" type="submit">Search</button>
+      </form>
         <li class="nav-item">
         <a class="nav-link text" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 
@@ -47,10 +51,8 @@
           </div>
         </li>*@
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-outline-dark text-white my-2 my-sm-0" type="submit">Search</button>
-      </form>
+        <partial name="_LoginPartial"/>
+      
     </div>
   </div>
 </nav>
