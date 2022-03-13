@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using MyApp.DataAccessLayer.Infrastructure.Repository;
+using MyApp.DataAccessLayer.Infrastructure.IRepository;
 using MyApp.Models;
 using System.Diagnostics;
 
@@ -11,17 +11,18 @@ namespace WelcomeWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitofWork _unitofWork;
 
-        public HomeController(ILogger<HomeController> logger, UnitOfWork unitOfWork)
+        public HomeController(ILogger<HomeController> logger, IUnitofWork unitOfWork)
         {
             _logger = logger;
-            _unitOfWork = unitOfWork;
+            _unitofWork = unitOfWork;   
+           
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Product> Products = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            IEnumerable<Product> Products = _unitofWork.Product.GetAll(includeProperties: "Category");
             return View(Products);
         }
 

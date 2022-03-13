@@ -10,7 +10,7 @@
   <img class="card-img-top" src="@item.ImgUrl" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">@item.ProductName</h5>
-    <p class="card-text">@item.Price</p>
+    <p class="card-text">Price:@item.Price.ToString("0.00")</p>
     <a asp-action="Detail" asp-controller="Home" asp-route-id = "@item.ProductId" class="btn btn-primary">Detail</a>
   </div>
 </div>
