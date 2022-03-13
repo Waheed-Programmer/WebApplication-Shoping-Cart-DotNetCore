@@ -8,12 +8,12 @@
 @foreach (var item in Model)
 {
 
-    <div class="card ml-lg-3" style="width: 18rem;">
+    <div class="card py-2" style="width: 18rem;">
   <img class="card-img-top" src="@item.ImgUrl" height=150px; width=150px; alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">@item.ProductName</h5>
     <p class="card-text">Price:@item.Price.ToString("0.00")</p>
-    <a asp-action="Detail" asp-controller="Home" asp-route-id = "@item.ProductId" class="btn btn-primary">Detail</a>
+    <a asp-action="Detail" asp-controller="Home" asp-route-id = "@item.ProductId" class="w-100 btn btn-lg btn-primary mt-3">Detail</a>
   </div>
 </div>
 }

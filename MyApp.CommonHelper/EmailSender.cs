@@ -11,7 +11,7 @@ namespace MyApp.CommonHelper
     {
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            throw Task.CompletedTask;
+            return Task.CompletedTask;
         }
     }
 }
