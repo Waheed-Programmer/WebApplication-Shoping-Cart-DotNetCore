@@ -19,11 +19,17 @@ namespace WelcomeWeb.Controllers
             _unitofWork = unitOfWork;   
            
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             IEnumerable<Product> Products = _unitofWork.Product.GetAll(includeProperties: "Category");
             return View(Products);
+        }
+
+        public IActionResult Detail(int? id)
+        {
+            Product Product = _unitofWork.Product.GetT(x=>x.ProductId==id,includeProperties: "Category");
+            return View(Product);
         }
 
         public IActionResult Privacy()
