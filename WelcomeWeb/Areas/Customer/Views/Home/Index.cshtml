@@ -13,7 +13,7 @@
   <div class="card-body">
     <h5 class="card-title">@item.ProductName</h5>
     <p class="card-text">Price:@item.Price.ToString("0.00")</p>
-    <a asp-action="Detail" asp-controller="Home" asp-route-id = "@item.ProductId" class="w-100 btn btn-lg btn-primary mt-3">Detail</a>
+    <a asp-action="Detail" asp-controller="Home" asp-route-ProductId = "@item.ProductId" class="w-100 btn btn-lg btn-primary mt-3">Detail</a>
   </div>
 </div>
 }
