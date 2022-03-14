@@ -31,5 +31,35 @@ namespace WelcomeWeb.Areas.Customer.Controllers
             }
             return View(tCart);
         }
+
+        public IActionResult Plus(int id)
+        {
+            var cart = _unitofWork.Cart.GetT(x=>x.Id == id);
+            _unitofWork.Cart.IncreamentCartItem(cart, 1);
+            _unitofWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Minus(int id)
+        {
+            var cart = _unitofWork.Cart.GetT(x => x.Id == id);
+            if (cart.Count >= 1)
+            {
+                _unitofWork.Cart.Delete(cart);
+            }
+            else
+            {
+               _unitofWork.Cart.DecrementCartItem(cart, 1);
+
+            }
+            _unitofWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Delete(int id)
+        {
+            var cart = _unitofWork.Cart.GetT(x => x.Id == id);
+            _unitofWork.Cart.Delete(cart);
+            _unitofWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
