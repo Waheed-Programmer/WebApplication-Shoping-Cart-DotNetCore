@@ -42,7 +42,7 @@ namespace WelcomeWeb.Areas.Customer.Controllers
         public IActionResult Minus(int id)
         {
             var cart = _unitofWork.Cart.GetT(x => x.Id == id);
-            if (cart.Count >= 1)
+            if (cart.Count <= 1)
             {
                 _unitofWork.Cart.Delete(cart);
             }
