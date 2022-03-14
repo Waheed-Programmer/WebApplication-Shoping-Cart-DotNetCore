@@ -61,5 +61,10 @@ namespace WelcomeWeb.Areas.Customer.Controllers
             _unitofWork.Save();
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult Summary()
+        {
+            return View();
+
+        }
     }
 }
