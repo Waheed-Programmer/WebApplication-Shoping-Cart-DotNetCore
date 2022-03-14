@@ -44,15 +44,16 @@ namespace WelcomeWeb.Controllers
         [Authorize]
         public IActionResult Detail(Cart cart)
         {
-            if (ModelState.IsValid)
-            {
-                var claimIdentity = (ClaimsIdentity)User.Identity;
-                var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
-                cart.ApplicationUserId = claim.Value;
+            
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            cart.ApplicationUserId = claim.Value;
+            var cartItem = _unitofWork.Cart.GetT(x => x.ProductId == cart.ProductId && x.ApplicationUserId == claim.Value);
+            if(cartItem== null) 
+            { 
                 _unitofWork.Cart.Add(cart);
                 _unitofWork.Save();
-            }                
-           
+            }
             return RedirectToAction("Index");
         }
 
