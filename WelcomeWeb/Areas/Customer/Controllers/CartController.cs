@@ -11,7 +11,7 @@ namespace WelcomeWeb.Areas.Customer.Controllers
     public class CartController : Controller
     {
         private readonly IUnitofWork _unitofWork;
-
+        public CartVM tCart { get; set; }
         public CartController(IUnitofWork unitofWork)
         {
             _unitofWork = unitofWork;
@@ -21,10 +21,14 @@ namespace WelcomeWeb.Areas.Customer.Controllers
         {
             var claimIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            CartVM tCart = new CartVM()
+            tCart = new CartVM()
             {
                 ListOfCart = _unitofWork.Cart.GetAll(x => x.ApplicationUserId == claim.Value, includeProperties: "Product")
             };
+            foreach (var item in tCart.ListOfCart)
+            {
+                tCart.Total += (item.Product.Price * item.Count);
+            }
             return View(tCart);
         }
     }
