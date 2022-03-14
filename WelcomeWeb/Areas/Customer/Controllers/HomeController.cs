@@ -49,11 +49,16 @@ namespace WelcomeWeb.Controllers
             var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
             cart.ApplicationUserId = claim.Value;
             var cartItem = _unitofWork.Cart.GetT(x => x.ProductId == cart.ProductId && x.ApplicationUserId == claim.Value);
-            if(cartItem== null) 
-            { 
+            if (cartItem == null)
+            {
                 _unitofWork.Cart.Add(cart);
-                _unitofWork.Save();
             }
+            else
+            {
+                _unitofWork.Cart.IncreamentCartItem(cartItem, cart.Count);
+            }
+                _unitofWork.Save();
+            
             return RedirectToAction("Index");
         }
 
