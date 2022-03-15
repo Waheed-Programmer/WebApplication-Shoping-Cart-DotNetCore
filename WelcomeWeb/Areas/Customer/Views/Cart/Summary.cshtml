@@ -1,26 +1,28 @@
 ﻿@model MyApp.Models.ViewModel.CartVM
 
 <div class="card mb-3 mt-3">
-
-<div class="container d-flex justify-content-center mt-5 mb-5">
+    <center>
+    <h2 class="justify-content-center mt-5 mb-2">Order Replace</h2>
+    </center>
+<div class="container justify-content-center mt-5 mb-5">
     <div class="row">
-        <div class="col-md-6"> <span>Shipping Details</span>
+        <div class="col-md-6"> <span><b>Shipping Details</b></span>
           
                 
                   
                     <div class="card">                       
                             <div class="card-body payment-card-body"> 
-                                <span class="font-weight-normal card-text">Name</span>
+                                <span class="font-weight-normal card-text"><b>Name</b></span>
                                 <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.Name" class="form-control"> </div>
-                                <span class="font-weight-normal card-text">Phon Number</span>
+                                <span class="font-weight-normal card-text"><b>Phon Number</b></span>
                                 <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.Phon" class="form-control"> </div>
-                                <span class="font-weight-normal card-text">Address</span>
+                                <span class="font-weight-normal card-text"><b>Address</b></span>
                                 <div class="input"> <i class="fa fa-credit-card"></i> <textarea type="text" asp-for ="@Model.orderHeader.Address" class="form-control"></textarea> </div>
-                                <span class="font-weight-normal card-text">City</span>
+                                <span class="font-weight-normal card-text"><b>City</b></span>
                                 <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.City" class="form-control"> </div>
-                                <span class="font-weight-normal card-text">State</span>
+                                <span class="font-weight-normal card-text"><b>State</b></span>
                                 <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.State" class="form-control"> </div>
-                                <span class="font-weight-normal card-text">Postal Code</span>
+                                <span class="font-weight-normal card-text"><b>Postal Code</b></span>
                                 <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.PostalCode" class="form-control"> </div>
                                
                                @* <div class="row mt-3 mb-3">
@@ -38,23 +40,26 @@
              
             
         </div>
-        <div class="col-md-6"> <span>Summary</span>
+        <div class="col-md-6"> <span><b>Summary</b></span>
             <div class="card">
-                <div class="d-flex justify-content-between p-3">
-                    <div class="d-flex flex-column"> <span>Pro(Billed Monthly) <i class="fa fa-caret-down"></i></span> <a href="#" class="billing">Save 20% with annual billing</a> </div>
-                    <div class="mt-1"> <sup class="super-price">$9.99</sup> <span class="super-month">/Month</span> </div>
-                </div>
+                @foreach (var detail in Model.ListOfCart)
+                {
+                    
+                
+                <div class="d-flex justify-content-between p-2">
+                    <div class="d-flex flex-column p-2"> <span><b>Product</b></span>@detail.Product.ProductName </div>
+                    <div class="d-flex flex-column p-2"><span class="super-month"><b>Qty</b></span> @detail.Count</div>
+                    <div class="d-flex flex-column p-2"><span class="super-month"><b>Price</b></span>@(((detail.Product.Price)*(detail.Count)).ToString("c")) </div>
+                
+               
+                </div>}
                 <hr class="mt-0 line">
-                <div class="p-3">
-                    <div class="d-flex justify-content-between mb-2"> <span>Refferal Bonouses</span> <span>-$2.00</span> </div>
-                    <div class="d-flex justify-content-between"> <span>Vat <i class="fa fa-clock-o"></i></span> <span>-20%</span> </div>
-                </div>
-                <hr class="mt-0 line">
+               
                 <div class="p-3 d-flex justify-content-between">
-                    <div class="d-flex flex-column"> <span>Today you pay(US Dollars)</span> <small>After 30 days $9.59</small> </div> <span>$0</span>
+                    <div class="d-flex flex-column"> <span><b>Total Grand</b></span> <small></small> </div><b>@Model.orderHeader.OrderTotal.ToString("c")</b>
                 </div>
-                <div class="p-3"> <button class="btn btn-primary btn-block free-button">Try it free for 30 days</button>
-                    <div class="text-center"> <a href="#">Have a promo code?</a> </div>
+                
+                <div class="p-3"> <button class=" w-100 btn btn-primary btn-block free-button">Purchase</button>
                 </div>
             </div>
         </div>
