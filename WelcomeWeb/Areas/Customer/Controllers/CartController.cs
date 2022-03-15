@@ -32,7 +32,8 @@ namespace WelcomeWeb.Areas.Customer.Controllers
             }
             return View(tCart);
         }
-
+        [Authorize]
+        [HttpGet]
         public IActionResult Summary()
         {
             var claimIdentity = (ClaimsIdentity)User.Identity;
