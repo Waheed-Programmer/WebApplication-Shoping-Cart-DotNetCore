@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyApp.CommonHelper;
 using MyApp.DataAccessLayer.Infrastructure.IRepository;
+using MyApp.Models;
 using MyApp.Models.ViewModel;
 using System.Security.Claims;
 
@@ -56,6 +58,42 @@ namespace WelcomeWeb.Areas.Customer.Controllers
                 tCart.orderHeader.OrderTotal += (item.Product.Price * item.Count);
             }
             return View(tCart);
+
+        }
+        [HttpPost]
+        public IActionResult Summary(CartVM vm)
+        {
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            vm.ListOfCart = _unitofWork.Cart.GetAll(x => x.ApplicationUserId == claim.Value, includeProperties: "Product");
+            vm.orderHeader.OrderStatus = OrderStatus.StatusPending;
+            vm.orderHeader.PaymentStatus = PaymentStatus.StatusPending;
+            vm.orderHeader.DateOfOrder = DateTime.Now;
+            vm.orderHeader.ApplicationuserId = claim.Value;
+            foreach (var item in vm.ListOfCart)
+            {
+                vm.orderHeader.OrderTotal += (item.Product.Price * item.Count);
+            }
+
+            _unitofWork.OrderHeader.Add(vm.orderHeader);
+            _unitofWork.Save();
+            foreach (var item in vm.ListOfCart)
+            {
+                OrderDetail orderDetail = new OrderDetail()
+                {
+                    ProductId = item.ProductId,
+                    OrderHeaderId = vm.orderHeader.OrderHeaderId,
+                    Count = item.Count,
+                    Price = item.Product.Price
+
+                };
+                _unitofWork.OrderDetail.Add(orderDetail);
+                _unitofWork.Save();
+            }
+            _unitofWork.Cart.DeleteRange(vm.ListOfCart);
+            _unitofWork.Save();
+            return RedirectToAction("Index","Home");
+
 
         }
 

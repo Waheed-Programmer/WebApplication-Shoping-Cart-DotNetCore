@@ -11,7 +11,7 @@ namespace MyApp.Models
     public class OrderHeader
     {
         public int OrderHeaderId { get; set; }
-        public int ApplicationuserId { get; set; }
+        public string ApplicationuserId { get; set; }
         [ValidateNever]
         public ApplicationUser Applicationuser { get; set; }
         public DateTime DateOfOrder { get; set; }
