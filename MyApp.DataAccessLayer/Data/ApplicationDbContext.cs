@@ -15,5 +15,7 @@ namespace MyApp.DataAccessLayer
         public DbSet<Product> Products { get; set; } 
         public DbSet<Cart> Carts { get; set; } 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; } 
+        public DbSet<OrderHeader> orderHeaders { get; set; } 
+        public DbSet<OrderDetail> orderDetails { get; set; } 
     }
 }
