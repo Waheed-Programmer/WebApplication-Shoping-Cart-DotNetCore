@@ -23,13 +23,39 @@ namespace WelcomeWeb.Areas.Customer.Controllers
             var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
             tCart = new CartVM()
             {
-                ListOfCart = _unitofWork.Cart.GetAll(x => x.ApplicationUserId == claim.Value, includeProperties: "Product")
-            };
+                ListOfCart = _unitofWork.Cart.GetAll(x => x.ApplicationUserId == claim.Value, includeProperties: "Product"),
+                orderHeader = new MyApp.Models.OrderHeader()
+            };         
             foreach (var item in tCart.ListOfCart)
             {
-                tCart.Total += (item.Product.Price * item.Count);
+                tCart.orderHeader.OrderTotal += (item.Product.Price * item.Count);
             }
             return View(tCart);
+        }
+
+        public IActionResult Summary()
+        {
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            tCart = new CartVM()
+            {
+                ListOfCart = _unitofWork.Cart.GetAll(x => x.ApplicationUserId == claim.Value, includeProperties: "Product"),
+                orderHeader = new MyApp.Models.OrderHeader()
+            };
+            tCart.orderHeader.Applicationuser = _unitofWork.Application.GetT(x => x.Id == claim.Value);
+            tCart.orderHeader.Name = tCart.orderHeader.Applicationuser.Name;
+            tCart.orderHeader.Address = tCart.orderHeader.Applicationuser.Address;
+            tCart.orderHeader.Phon = tCart.orderHeader.Applicationuser.PhoneNumber;
+            tCart.orderHeader.City = tCart.orderHeader.Applicationuser.City;
+            tCart.orderHeader.PostalCode = tCart.orderHeader.Applicationuser.PinCode;
+            tCart.orderHeader.State = tCart.orderHeader.Applicationuser.State;
+
+            foreach (var item in tCart.ListOfCart)
+            {
+                tCart.orderHeader.OrderTotal += (item.Product.Price * item.Count);
+            }
+            return View(tCart);
+
         }
 
         public IActionResult Plus(int id)
@@ -61,10 +87,6 @@ namespace WelcomeWeb.Areas.Customer.Controllers
             _unitofWork.Save();
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Summary()
-        {
-            return View();
-
-        }
+       
     }
 }
