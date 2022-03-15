@@ -9,33 +9,23 @@
         <div class="col-md-6"> <span><b>Shipping Details</b></span>
                          
                  
-                    <div class="card">                       
-                            <div class="card-body payment-card-body"> 
-                                <span class="font-weight-normal card-text"><b>Name</b></span>
-                                <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.Name" class="form-control"> </div>
-                                <span class="font-weight-normal card-text"><b>Phon Number</b></span>
-                                <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.Phon" class="form-control"> </div>
-                                <span class="font-weight-normal card-text"><b>Address</b></span>
-                                <div class="input"> <i class="fa fa-credit-card"></i> <textarea type="text" asp-for ="@Model.orderHeader.Address" class="form-control"></textarea> </div>
-                                <span class="font-weight-normal card-text"><b>City</b></span>
-                                <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.City" class="form-control"> </div>
-                                <span class="font-weight-normal card-text"><b>State</b></span>
-                                <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.State" class="form-control"> </div>
-                                <span class="font-weight-normal card-text"><b>Postal Code</b></span>
-                                <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.PostalCode" class="form-control"> </div>
-                               
-                               @* <div class="row mt-3 mb-3">
-                                    <div class="col-md-6"> 
-                                        <span class="font-weight-normal card-text">Expiry Date</span>
-                                        <div class="input"> <i class="fa fa-calendar"></i> <input type="text" class="form-control" placeholder="MM/YY"> </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="font-weight-normal card-text">CVC/CVV</span>
-                                        <div class="input"> <i class="fa fa-lock"></i> <input type="text" class="form-control" placeholder="000"> </div>
-                                    </div>
-                                </div> <span class="text-muted certificate-text"><i class="fa fa-lock"></i> Your transaction is secured with ssl certificate</span>
-             *@               </div>
-                    </div>
+         <div class="card">                       
+                 <div class="card-body payment-card-body"> 
+                     <span class="font-weight-normal card-text"><b>Name</b></span>
+                     <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.Name" class="form-control"> </div>
+                     <span class="font-weight-normal card-text"><b>Phon Number</b></span>
+                     <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.Phon" class="form-control"> </div>
+                     <span class="font-weight-normal card-text"><b>Address</b></span>
+                     <div class="input"> <i class="fa fa-credit-card"></i> <textarea type="text" asp-for ="@Model.orderHeader.Address" class="form-control"></textarea> </div>
+                     <span class="font-weight-normal card-text"><b>City</b></span>
+                     <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.City" class="form-control"> </div>
+                     <span class="font-weight-normal card-text"><b>State</b></span>
+                     <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.State" class="form-control"> </div>
+                     <span class="font-weight-normal card-text"><b>Postal Code</b></span>
+                     <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.PostalCode" class="form-control"> </div>
+                    
+                 </div>
+         </div>
              
             
         </div>
@@ -56,10 +46,11 @@
                
                 <div class="p-3 d-flex justify-content-between">
                     <div class="d-flex flex-column"> <span><b>Total Grand</b></span> <small></small> </div><b>@Model.orderHeader.OrderTotal.ToString("c")</b>
+                </div>  
+                <form method="post">
+                <div class="p-3"> <button asp-action="Summary" asp-controller="Cart" class=" w-100 btn btn-primary btn-block free-button">Purchase</button>
                 </div>
-                
-                <div class="p-3"> <button type="submit" class=" w-100 btn btn-primary btn-block free-button">Purchase</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
