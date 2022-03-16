@@ -203,24 +203,21 @@
                 </div>}
                 <hr class="mt-0 line">
                
-                @*<div class="p-3 d-flex justify-content-between">
-                    <div class="d-flex flex-column"> <span><b>Total Grand</b></span> <small></small> </div><b>@Model.orderHeader.OrderTotal.ToString("c")</b>
-                </div>  
-*@                
+                         
                 <div class="p-3">
                 @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
                  {
                    if(Model.orderHeader.OrderStatus==OrderStatus.StatusApproved){
-                 <button asp-action="Summary" asp-controller="Cart" class=" w-100 btn btn-primary btn-block free-button mb-2">Start Processing</button>
+                 <button asp-action="InProcess" type ="submit" asp-controller="Order" class=" w-100 btn btn-primary btn-block free-button mb-2">Start Processing</button>
                 }
                  if(Model.orderHeader.OrderStatus==OrderStatus.StatusInProcess)
                  {
-                 <button asp-action="Summary" asp-controller="Cart" class=" w-100 btn btn-success btn-block free-button mb-2">Ship Order</button>
+                 <button asp-action="Shipped" type ="submit" asp-controller="Order" class=" w-100 btn btn-success btn-block free-button mb-2">Ship Order</button>
                 }
                  if(Model.orderHeader.OrderStatus!=OrderStatus.StatusRefunded ||
                  Model.orderHeader.OrderStatus!=OrderStatus.StatusCancelled)
                 {
-                 <button asp-action="Summary" asp-controller="Cart" class=" w-100 btn btn-dark btn-block free-button mb-2">Cancel Order</button>
+                 <button  type ="submit" class=" w-100 btn btn-dark btn-block free-button mb-2">Cancel Order</button>
                  }
 
                  }
@@ -236,3 +233,26 @@
 </div>
 </div>
 </form>
+
+@section scripts{
+    <partial name="_ValidationScriptsPartial"/>
+
+    <script>
+
+
+ 
+
+        function Validate(){
+            if(document.getElementById("ImageFile").value==""){
+              Swal.fire({
+              title: 'Error!',
+              text: 'Please Select Image',
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            });
+            return false;
+            }
+            return true;
+        }
+    </script>
+}
