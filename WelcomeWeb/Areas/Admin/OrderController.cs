@@ -4,6 +4,7 @@ using MyApp.Models;
 
 namespace WelcomeWeb.Areas.Admin
 {
+    [Area("Admin")]
     public class OrderController : Controller
     {
         private readonly IUnitofWork _unitofWork;

@@ -15,10 +15,8 @@ $(document).ready(function () {
                 "data": "OrderHeaderId",
                 "render": function (data) {
                     return `                    
-                    <a href="/Admin/Order/OrderDetails?id=${data}"><i class="bi bi-pencil-square"></i></a>
-                    <a onclick=DeleteProduct("/Admin/Product/Delete/${data}")><i class="bi bi-trash3-fill"></i></a>
-                       
-                    `
+                    <a href="/Admin/Order/OrderDetails?id=${data}"><i class="bi bi-pencil-square"></i></a>                      
+                   `
                 }
             },
         
