@@ -7,7 +7,7 @@
     </center>
 <div class="container justify-content-center mt-5 mb-5">
     <div class="row">
-        <div class="col-md-6"> <span><b>Shipping Details</b></span>
+        <div class="col-md-6"> <span><b>PickUp Details</b></span>
                          
                  
          <div class="card">                       
@@ -29,37 +29,144 @@
                             </div>
 
 
-                     <span class="font-weight-normal card-text"><b>Phon Number</b></span>
                      <div class="input">
-                        <input type="text"  class="form-control"> 
-                        </div>
+                         @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
+                         {
+                             <span class="font-weight-normal card-text"><b>Phon No</b></span>                           
+                             <input asp-for="orderHeader.Phon" class="form-control">
+                             <span asp-validation-for="orderHeader.Phon" class="text-danger"></span>
+                                    
+                          }
+                            else
+                            {
+                            <span class="font-weight-normal card-text"><b>Phon No</b></span>                           
+                            <input asp-for="orderHeader.Phon" readonly class="form-control">
+
+                            }
+                            </div>
 
 
-                     <span class="font-weight-normal card-text"><b>Address</b></span>
+                      <div class="input">
+                         @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
+                         {
+                             <span class="font-weight-normal card-text"><b>Address</b></span>                           
+                             <textarea type="text" asp-for="orderHeader.Address" class="form-control"></textarea>
+                             <span asp-validation-for="orderHeader.Address" class="text-danger"></span>
+                                    
+                          }
+                            else
+                            {
+                            <span class="font-weight-normal card-text"><b>Address</b></span>                           
+                            <textarea type="text" asp-for="orderHeader.Address" readonly class="form-control"></textarea>
+
+
+                            }
+                            </div>
+
+
+                      <div class="input">
+                         @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
+                         {
+                             <span class="font-weight-normal card-text"><b>City</b></span>                           
+                             <input asp-for="orderHeader.City" class="form-control">
+                             <span asp-validation-for="orderHeader.City" class="text-danger"></span>
+                                    
+                          }
+                            else
+                            {
+                            <span class="font-weight-normal card-text"><b>City</b></span>                           
+                            <input asp-for="orderHeader.City" readonly class="form-control">
+
+                            }
+                            </div>
+
+
+                      <div class="input">
+                         @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
+                         {
+                             <span class="font-weight-normal card-text"><b>State</b></span>                           
+                             <input asp-for="orderHeader.State" class="form-control">
+                             <span asp-validation-for="orderHeader.State" class="text-danger"></span>
+                                    
+                          }
+                            else
+                            {
+                            <span class="font-weight-normal card-text"><b>State</b></span>                           
+                            <input asp-for="orderHeader.State" readonly class="form-control">
+
+                            }
+                            </div>
+
+
+                      <div class="input">
+                         @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
+                         {
+                             <span class="font-weight-normal card-text"><b>Postal Code</b></span>                           
+                             <input asp-for="orderHeader.PostalCode" class="form-control">
+                             <span asp-validation-for="orderHeader.PostalCode" class="text-danger"></span>
+                                    
+                          }
+                            else
+                            {
+                            <span class="font-weight-normal card-text"><b>Postal Code</b></span>                           
+                            <input asp-for="orderHeader.PostalCode" readonly class="form-control">
+
+                            }
+                            </div>
+                      <span class="font-weight-normal card-text"><b>Email</b></span>
                      <div class="input"> 
-                        <textarea type="text"  class="form-control"></textarea> 
-                        </div>
-
-
-                     <span class="font-weight-normal card-text"><b>City</b></span>
-                     <div class="input">
-                        <input type="text"  class="form-control"> 
-                        </div>
-
-
-                     <span class="font-weight-normal card-text"><b>State</b></span>
-                     <div class="input">
-                         <input type="text" class="form-control">
+                         <input type="text" readonly asp-for ="orderHeader.Applicationuser.Email" class="form-control">
                          </div>
+                            <div class="input">
+                         @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
+                         {
+                             <span class="font-weight-normal card-text"><b>Tracking</b></span>                           
+                             <input asp-for="orderHeader.TrackingNumber" class="form-control">
+                                    
+                          }
+                            else
+                            {
+                            <span class="font-weight-normal card-text"><b>Tracking</b></span>                           
+                            <input asp-for="orderHeader.TrackingNumber" readonly class="form-control">
 
-
-                     <span class="font-weight-normal card-text"><b>Postal Code</b></span>
+                            }
+                            </div> 
+                        
+                      <span class="font-weight-normal card-text"><b>Order Date</b></span>
                      <div class="input"> 
-                         <input type="text"  class="form-control">
+                         <input readonly value ="Model.orderHeader.DateOfOrder.ToShortDateString()" class="form-control">
                          </div>
+                    <div class="input">
+                         @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
+                         {
+                             <span class="font-weight-normal card-text"><b>Carrier</b></span>                           
+                             <input asp-for="orderHeader.Carrior" class="form-control">
+                                    
+                          }
+                            else
+                            {
+                            <span class="font-weight-normal card-text"><b>Carrier</b></span>                           
+                            <input asp-for="orderHeader.Carrior" readonly class="form-control">
 
+                            }
+                            </div>
+                          <span class="font-weight-normal card-text"><b>Shipping Date</b></span>
+                     <div class="input"> 
+                         <input readonly value ="Model.orderHeader.DateOfShipping.ToShortDateString()" class="form-control">
+                         </div>
+                       <div class="input">
+                         @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
+                         {
+                             <span class="font-weight-normal card-text"><b>Session Id</b></span>                           
+                             <input asp-for="orderHeader.SessionId" readonly class="form-control">
+                             
+                              <span class="font-weight-normal card-text"><b>Payment Intent Id</b></span>                           
+                             <input asp-for="orderHeader.PaymentIntentId" class="form-control">
+                       
+                          }
+                            
+                        </div>
 
-                    
                  </div>
          </div>
              

@@ -18,7 +18,8 @@ namespace MyApp.DataAccessLayer.Infrastructure.Repository
 
         public void PaymentStatus(int orderHeaderId, string SessionId, string PaymentIntentId)
         {
-            var orderHeader = _context.orderHeaders.FirstOrDefault(x=>x.OrderHeaderId == orderHeaderId);    
+            var orderHeader = _context.orderHeaders.FirstOrDefault(x=>x.OrderHeaderId == orderHeaderId);
+            orderHeader.DateOfPayment = DateTime.Now;
             orderHeader.PaymentIntentId = PaymentIntentId;
             orderHeader.SessionId = SessionId;
         }
