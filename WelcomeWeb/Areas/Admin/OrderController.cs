@@ -23,7 +23,7 @@ namespace WelcomeWeb.Areas.Admin
         }
 
         #region All Order get throug json data
-        public IActionResult AllOrders()
+        public IActionResult AllOrders(string status)
         {
             IEnumerable<OrderHeader> orderHeaders;
             if (User.IsInRole("Admin") || User.IsInRole("Employee"))
@@ -41,5 +41,12 @@ namespace WelcomeWeb.Areas.Admin
             return Json(new { data = orderHeaders });
         }
         #endregion
+
+
+
+        public IActionResult OrderDetails(string status)
+        {
+            return View();
+        }
     }
 }

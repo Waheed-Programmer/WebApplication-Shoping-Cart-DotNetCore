@@ -1,8 +1,21 @@
 ﻿var dTable;
 $(document).ready(function () {
+
+    var url = window.location.search;
+    if (url.includes("pending")) {
+        OrderShow("pending");
+    }
+
+
+
+
+    
+});
+
+function OrderShow(status) {
     dTable = $('#myTable').DataTable({
         "ajax": {
-            "url": "/Admin/Order/AllOrders",
+            "url": "/Admin/Order/AllOrders?status=" + status,
             "type": "GET",
             "datatype": "json"
         },
@@ -22,4 +35,4 @@ $(document).ready(function () {
 
         ]
     });
-});
+}
