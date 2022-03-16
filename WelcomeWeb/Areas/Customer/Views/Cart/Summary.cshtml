@@ -1,5 +1,9 @@
 ﻿@model MyApp.Models.ViewModel.CartVM
+@using Microsoft.Extensions.Options
+@inject IOptions<MyApp.CommonHelper.StripeSetting> Stripe
 
+
+<form method="post">
 <div class="card mb-3 mt-3">
     <center>
     <h2 class="justify-content-center mt-5 mb-2">Order Replace</h2>
@@ -47,12 +51,13 @@
                 <div class="p-3 d-flex justify-content-between">
                     <div class="d-flex flex-column"> <span><b>Total Grand</b></span> <small></small> </div><b>@Model.orderHeader.OrderTotal.ToString("c")</b>
                 </div>  
-                <form method="post">
+                
                 <div class="p-3"> <button asp-action="Summary" asp-controller="Cart" class=" w-100 btn btn-primary btn-block free-button">Purchase</button>
                 </div>
-                </form>
+            
             </div>
         </div>
     </div>
 </div>
 </div>
+</form>

@@ -4,6 +4,7 @@ using MyApp.CommonHelper;
 using MyApp.DataAccessLayer.Infrastructure.IRepository;
 using MyApp.Models;
 using MyApp.Models.ViewModel;
+using Stripe.Checkout;
 using System.Security.Claims;
 
 namespace WelcomeWeb.Areas.Customer.Controllers
@@ -99,6 +100,57 @@ namespace WelcomeWeb.Areas.Customer.Controllers
                 _unitofWork.OrderDetail.Add(orderDetail);
                 _unitofWork.Save();
             }
+
+            //Apply payment method
+            var domain = "https://localhost:7207/";
+            var options = new SessionCreateOptions
+            {
+                LineItems = new List<SessionLineItemOptions>(),            
+                Mode = "payment",
+                SuccessUrl = domain+$"customer/cart/ordersuccess?id={vm.orderHeader.OrderHeaderId}",
+                CancelUrl = domain+$"customer/cart/index",
+            };
+
+            foreach (var item in vm.ListOfCart)
+            {
+
+                var lieItemoptions = new SessionLineItemOptions
+                {
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
+                        UnitAmount = (long)item.Product.Price,
+                        Currency = "pkr",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                        {
+                            Name = item.Product.ProductName,
+                        },
+
+
+                    },
+                    Quantity = item.Count,
+
+
+                };
+                options.LineItems.Add(lieItemoptions);
+            }
+
+            var service = new SessionService();
+            Session session = service.Create(options);
+
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(303);
+
+
+
+
+
+
+
+
+
+
+
+
             _unitofWork.Cart.DeleteRange(tCart.ListOfCart);
             _unitofWork.Save();
             return RedirectToAction("Index","Home");
