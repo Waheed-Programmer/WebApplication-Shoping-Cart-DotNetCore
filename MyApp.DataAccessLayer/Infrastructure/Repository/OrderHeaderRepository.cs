@@ -16,17 +16,17 @@ namespace MyApp.DataAccessLayer.Infrastructure.Repository
             _context = context;
         }
 
+        public void PaymentStatus(int orderHeaderId, string SessionId, string PaymentIntentId)
+        {
+            var orderHeader = _context.orderHeaders.FirstOrDefault(x=>x.OrderHeaderId == orderHeaderId);    
+            orderHeader.PaymentIntentId = PaymentIntentId;
+            orderHeader.SessionId = SessionId;
+        }
+
         public void Update(OrderHeader orderHeader)
         {
 
-            _context.orderHeaders.Update(orderHeader);
-
-            //var Categorydb = _context.Categories.FirstOrDefault(x=>x.CategoryId == category.CategoryId);
-            //if(Categorydb != null)
-            //{
-            //    Categorydb.CategoryName = category.CategoryName;
-            //    Categorydb.OrderPlace = category.OrderPlace;
-            //}
+            _context.orderHeaders.Update(orderHeader);          
             
         }
 

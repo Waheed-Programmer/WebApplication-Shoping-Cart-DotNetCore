@@ -11,6 +11,7 @@ namespace MyApp.DataAccessLayer.Infrastructure.IRepository
     {
         void Update(OrderHeader orderHeader);
         void UpdateStatus(int orderHeaderId, string orderStatus, string? paymentStatus=null);
+        void PaymentStatus(int orderHeaderId, string SessionId, string PaymentIntentId);
 
     }
 }
