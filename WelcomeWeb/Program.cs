@@ -51,10 +51,10 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+StripeConfiguration.SetApiKey(builder.Configuration["PaymentSettings:SecretKey"]);
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-StripeConfiguration.ApiKey = builder.Configuration.GetSection("PaymentSettings: SecretKey").Get<string>();
+//StripeConfiguration.SetApiKey = builder.Configuration.GetSection("PaymentSettings: SecretKey").Get<string>();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
