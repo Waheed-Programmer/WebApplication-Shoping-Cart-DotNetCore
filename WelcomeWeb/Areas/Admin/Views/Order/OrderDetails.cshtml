@@ -7,7 +7,7 @@
     </center>
 <div class="container justify-content-center mt-5 mb-5">
     <div class="row">
-        <div class="col-md-6">@* <span><b>PickUp Details</b></span>*@
+        <div class="col-md-6">
                          
                  
          <div class="card">  
@@ -205,22 +205,22 @@
                
                          
                 <div class="p-3">
-                @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
-                 {
-                   if(Model.orderHeader.OrderStatus==OrderStatus.StatusApproved){
+               @* @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
+                 {*@
+                   @if(Model.orderHeader.OrderStatus==OrderStatus.StatusApproved){
                  <button asp-action="InProcess" type ="submit" asp-controller="Order" class=" w-100 btn btn-primary btn-block free-button mb-2">Start Processing</button>
                 }
-                 if(Model.orderHeader.OrderStatus==OrderStatus.StatusInProcess)
+                 @if(Model.orderHeader.OrderStatus==OrderStatus.StatusInProcess)
                  {
                  <button asp-action="Shipped" type ="submit" asp-controller="Order" class=" w-100 btn btn-success btn-block free-button mb-2">Ship Order</button>
                 }
-                 if(Model.orderHeader.OrderStatus!=OrderStatus.StatusRefunded ||
+                 @if(Model.orderHeader.OrderStatus!=OrderStatus.StatusRefunded ||
                  Model.orderHeader.OrderStatus!=OrderStatus.StatusCancelled)
                 {
                  <button  type ="submit" class=" w-100 btn btn-dark btn-block free-button mb-2">Cancel Order</button>
                  }
 
-                 }
+                 
              
              
              
