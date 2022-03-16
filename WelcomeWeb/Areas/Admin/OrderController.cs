@@ -23,7 +23,7 @@ namespace WelcomeWeb.Areas.Admin
         public IActionResult AllOrders()
         {
             IEnumerable<OrderHeader> orderHeaders;
-            orderHeaders = _unitofWork.OrderHeader.GetAll(includeProperties: "ApplicationUser");
+            orderHeaders = _unitofWork.OrderHeader.GetAll(includeProperties: "Applicationuser");
             return Json(new { data = orderHeaders });
         }
         #endregion
