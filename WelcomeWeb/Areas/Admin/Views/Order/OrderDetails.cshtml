@@ -8,7 +8,7 @@
 <div class="container justify-content-center mt-5 mb-5">
     <div class="row">
         <div class="col-md-6">
-                         
+             <input type="hidden" asp-for="orderHeader.OrderHeaderId" />            
                  
          <div class="card">  
               <div class="card-header py-2"><span><b>PickUp Details</b></span></div>
@@ -122,7 +122,7 @@
                          @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
                          {
                              <span class="font-weight-normal card-text"><b>Tracking</b></span>                           
-                             <input asp-for="orderHeader.TrackingNumber" class="form-control">
+                             <input asp-for="orderHeader.TrackingNumber"  class="form-control">
                                     
                           }
                             else
@@ -141,7 +141,7 @@
                          @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
                          {
                              <span class="font-weight-normal card-text"><b>Carrier</b></span>                           
-                             <input asp-for="orderHeader.Carrior" class="form-control">
+                             <input asp-for="orderHeader.Carrior"  class="form-control">
                                     
                           }
                            else
@@ -202,27 +202,30 @@
                
                 </div>}
                 <hr class="mt-0 line">
-               
+               <div class="p-3 d-flex justify-content-between">
+                    <div class="d-flex flex-column"> <span><b>Total Grand</b></span> <small></small> </div><b>@Model.orderHeader.OrderTotal.ToString("c")</b>
+                </div> 
                          
                 <div class="p-3">
-               @* @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
-                 {*@
-                   @if(Model.orderHeader.OrderStatus==OrderStatus.StatusApproved){
-                 <button asp-action="InProcess" type ="submit" asp-controller="Order" class=" w-100 btn btn-primary btn-block free-button mb-2">Start Processing</button>
-                }
-                 @if(Model.orderHeader.OrderStatus==OrderStatus.StatusInProcess)
-                 {
-                 <button asp-action="Shipped" type ="submit" asp-controller="Order" class=" w-100 btn btn-success btn-block free-button mb-2">Ship Order</button>
-                }
-                 @if(Model.orderHeader.OrderStatus!=OrderStatus.StatusRefunded ||
-                 Model.orderHeader.OrderStatus!=OrderStatus.StatusCancelled)
+                @if (User.IsInRole(WebsiteRole.Role_Admin) || User.IsInRole(WebsiteRole.Role_Employee))
                 {
-                 <button  type ="submit" class=" w-100 btn btn-dark btn-block free-button mb-2">Cancel Order</button>
-                 }
+                    @if (Model.orderHeader.OrderStatus == OrderStatus.StatusApproved)
+                    {
+                        <button asp-action="InProcess" type ="submit" asp-controller="Order" class=" w-100 btn btn-primary btn-block free-button mb-2">Start Processing</button>
+                    }
+                    @if (Model.orderHeader.OrderStatus == OrderStatus.StatusInProcess)
+                    {
+                        <button asp-action="Shipped" onclick="Validate()"  type ="submit" asp-controller="Order" class=" w-100 btn btn-success btn-block free-button mb-2">Ship Order</button>
+                    }
+                    @if (Model.orderHeader.OrderStatus != OrderStatus.StatusRefunded ||
+                                  Model.orderHeader.OrderStatus != OrderStatus.StatusCancelled)
+                    {
+                        <button  type ="submit" class=" w-100 btn btn-dark btn-block free-button mb-2">Cancel Order</button>
+                    }
 
-                 
-             
-             
+
+                }
+
              
              </div>
                  
@@ -236,17 +239,40 @@
 
 @section scripts{
     <partial name="_ValidationScriptsPartial"/>
-
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>    
+    <script type="text/javascript">
+       
+        $(function(){
+            var save = '@TempData["Save"]'
+            if(save!='') {
+                alertify.success(save);
+            }
+            var edit = '@TempData["dit"]'
+            if(edit!='') {
+                alertify.warning(edit);
+            }
+            var del = '@TempData["elete"]'
+            if (del!='') {
+                alertify.warning(del);
+            }
+        })
+    </script>
     <script>
 
-
- 
-
         function Validate(){
-            if(document.getElementById("ImageFile").value==""){
+            if(document.getElementById("orderHeader_Carrior").value==""){
               Swal.fire({
               title: 'Error!',
-              text: 'Please Select Image',
+              text: 'Please Enter Carrier Field ',
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            });
+            return false;
+            }
+            if(document.getElementById("orderHeader_TrackingNumber").value==""){
+              Swal.fire({
+              title: 'Error!',
+              text: 'Please Enter Tracking Feild',
               icon: 'error',
               confirmButtonText: 'Ok'
             });

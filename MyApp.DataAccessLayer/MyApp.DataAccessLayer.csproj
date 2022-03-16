@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyApp.CommonHelper\MyApp.CommonHelper.csproj" />
     <ProjectReference Include="..\MyApp.Models\MyApp.Models.csproj" />
   </ItemGroup>
 

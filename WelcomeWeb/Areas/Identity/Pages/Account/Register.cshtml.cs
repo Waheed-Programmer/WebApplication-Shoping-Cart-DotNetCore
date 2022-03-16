@@ -120,25 +120,8 @@ namespace WelcomeWeb.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if(!_roleManager.RoleExistsAsync(WebsiteRole.Role_Admin).GetAwaiter().GetResult())
-            {
-                _roleManager.CreateAsync(new IdentityRole(WebsiteRole.Role_Admin)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(WebsiteRole.Role_User)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(WebsiteRole.Role_Employee)).GetAwaiter().GetResult();
-            }
-            var users = _unitofWork.Application.GetAll();
-            foreach (var user in users)
-            {
-                if (user.Email == "superadmin@xyz.com")
-                {
-                    _userManager.AddToRoleAsync(user, WebsiteRole.Role_Admin).Wait();
-                }
-                else
-                {
-                    _userManager.AddToRoleAsync(user, WebsiteRole.Role_User).Wait();
-
-                }
-            }
+            
+           
 
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();

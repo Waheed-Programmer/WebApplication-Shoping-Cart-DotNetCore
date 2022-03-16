@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Identity;
 using MyApp.CommonHelper;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Stripe;
+using MyApp.DataAccessLayer.DbIntitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Add DataIndependency Services Methods
 
 builder.Services.AddScoped<IUnitofWork, UnitOfWork>();
+builder.Services.AddScoped<IDbIntitializer, DbIntitialize>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -59,9 +61,20 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
+dataSedding();
+
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+void dataSedding()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var DbIntializer = scope.ServiceProvider.GetRequiredService<IDbIntitializer>();
+        DbIntializer.Intitialize();
+    }
+}
