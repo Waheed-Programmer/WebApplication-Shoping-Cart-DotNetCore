@@ -9,7 +9,7 @@ namespace MyApp.Models.ViewModel
     public class OrderVM
     {
         public OrderHeader orderHeader { get; set; }
-        IEnumerable<OrderDetail> orderDetails { get; set; }
+        public IEnumerable<OrderDetail> OrderDetail { get; set; }
 
     }
 }

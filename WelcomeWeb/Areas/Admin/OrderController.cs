@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyApp.CommonHelper;
 using MyApp.DataAccessLayer.Infrastructure.IRepository;
 using MyApp.Models;
+using MyApp.Models.ViewModel;
 using System.Security.Claims;
 
 namespace WelcomeWeb.Areas.Admin
@@ -38,14 +40,32 @@ namespace WelcomeWeb.Areas.Admin
                 orderHeaders = _unitofWork.OrderHeader.GetAll(x=>x.ApplicationuserId==claim.Value);
 
             }
+            switch (status)
+            {
+                case "pending":
+                    orderHeaders = _unitofWork.OrderHeader.GetAll(x => x.PaymentStatus == PaymentStatus.StatusPending);
+                    break;
+                case "approved":
+                    orderHeaders = _unitofWork.OrderHeader.GetAll(x => x.PaymentStatus == PaymentStatus.StatusApproved);
+                    break;
+
+                default:
+                    orderHeaders = _unitofWork.OrderHeader.GetAll(includeProperties: "Applicationuser");
+                    break;
+            }
             return Json(new { data = orderHeaders });
         }
         #endregion
 
 
 
-        public IActionResult OrderDetails(string status)
+        public IActionResult OrderDetails(int id)
         {
+            OrderVM orderVM = new OrderVM()
+            {
+                orderHeader =  _unitofWork.OrderHeader.GetT(x=>x.OrderHeaderId==id, includeProperties:"Applicationuser"),
+                OrderDetail = _unitofWork.OrderDetail.GetAll(x=>x.Id==id, includeProperties:"Product")
+            };
             return View();
         }
     }

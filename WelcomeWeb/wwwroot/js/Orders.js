@@ -5,6 +5,14 @@ $(document).ready(function () {
     if (url.includes("pending")) {
         OrderShow("pending");
     }
+    else if (url.includes("approved"))
+        {
+            OrderShow("approved");
+        }
+        
+    else {
+        OrderShow(status);
+         }
 
 
 
@@ -15,7 +23,7 @@ $(document).ready(function () {
 function OrderShow(status) {
     dTable = $('#myTable').DataTable({
         "ajax": {
-            "url": "/Admin/Order/AllOrders?status=" + status,
+            "url":  "/Admin/Order/AllOrders?status=" + status,
             "type": "GET",
             "datatype": "json"
         },
