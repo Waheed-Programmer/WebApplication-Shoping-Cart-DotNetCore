@@ -7,10 +7,11 @@
     </center>
 <div class="container justify-content-center mt-5 mb-5">
     <div class="row">
-        <div class="col-md-6"> <span><b>PickUp Details</b></span>
+        <div class="col-md-6">@* <span><b>PickUp Details</b></span>*@
                          
                  
-         <div class="card">                       
+         <div class="card">  
+              <div class="card-header py-2"><span><b>PickUp Details</b></span></div>
                  <div class="card-body payment-card-body"> 
                      <div class="input">
                          @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
@@ -134,7 +135,7 @@
                         
                       <span class="font-weight-normal card-text"><b>Order Date</b></span>
                      <div class="input"> 
-                         <input readonly value ="Model.orderHeader.DateOfOrder.ToShortDateString()" class="form-control">
+                         <input readonly asp-for ="orderHeader.DateOfOrder" class="form-control">
                          </div>
                     <div class="input">
                          @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
@@ -143,7 +144,7 @@
                              <input asp-for="orderHeader.Carrior" class="form-control">
                                     
                           }
-                            else
+                           else
                             {
                             <span class="font-weight-normal card-text"><b>Carrier</b></span>                           
                             <input asp-for="orderHeader.Carrior" readonly class="form-control">
@@ -152,7 +153,7 @@
                             </div>
                           <span class="font-weight-normal card-text"><b>Shipping Date</b></span>
                      <div class="input"> 
-                         <input readonly value ="Model.orderHeader.DateOfShipping.ToShortDateString()" class="form-control">
+                         <input readonly asp-for ="orderHeader.DateOfShipping" class="form-control">
                          </div>
                        <div class="input">
                          @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
@@ -166,15 +167,30 @@
                           }
                             
                         </div>
+                        @if(Model.orderHeader.SessionId!=null){
+                        <span class="font-weight-normal card-text"><b>Payment Date</b></span>
+                     <div class="input"> 
+                         <input readonly asp-for ="orderHeader.DateOfPayment" class="form-control">
+                         </div>
+                         }
+                         <span class="font-weight-normal card-text"><b>Payment Status</b></span>
+                     <div class="input"> 
+                         <input readonly asp-for ="orderHeader.PaymentStatus" class="form-control">
+                         </div>
+                         
+                     <div class="input"> 
+                    `<button type="submit" class=" w-100 btn btn-primary btn-block free-button mb-2 mt-3">Update Order</button>
 
+                        </div>
                  </div>
          </div>
              
             
         </div>
-        <div class="col-md-6"> <span><b>Summary</b></span>
+        <div class="col-md-6"> 
             <div class="card">
-               @* @foreach (var detail in Model.ListOfCart)
+                <div class="card-header py-2"><span><b>Summary</b></span></div>
+                @foreach (var detail in Model.OrderDetail)
                 {
                     
                 
@@ -187,14 +203,31 @@
                 </div>}
                 <hr class="mt-0 line">
                
-                <div class="p-3 d-flex justify-content-between">
+                @*<div class="p-3 d-flex justify-content-between">
                     <div class="d-flex flex-column"> <span><b>Total Grand</b></span> <small></small> </div><b>@Model.orderHeader.OrderTotal.ToString("c")</b>
-                </div>  *@
-                
-                <div class="p-3"> <button asp-action="Summary" asp-controller="Cart" class=" w-100 btn btn-primary btn-block free-button mb-2">Start Processing</button>
+                </div>  
+*@                
+                <div class="p-3">
+                @if(User.IsInRole(WebsiteRole.Role_Admin)|| User.IsInRole(WebsiteRole.Role_Employee))
+                 {
+                   if(Model.orderHeader.OrderStatus==OrderStatus.StatusApproved){
+                 <button asp-action="Summary" asp-controller="Cart" class=" w-100 btn btn-primary btn-block free-button mb-2">Start Processing</button>
+                }
+                 if(Model.orderHeader.OrderStatus==OrderStatus.StatusInProcess)
+                 {
                  <button asp-action="Summary" asp-controller="Cart" class=" w-100 btn btn-success btn-block free-button mb-2">Ship Order</button>
+                }
+                 if(Model.orderHeader.OrderStatus!=OrderStatus.StatusRefunded ||
+                 Model.orderHeader.OrderStatus!=OrderStatus.StatusCancelled)
+                {
                  <button asp-action="Summary" asp-controller="Cart" class=" w-100 btn btn-dark btn-block free-button mb-2">Cancel Order</button>
-                </div>
+                 }
+
+                 }
+             
+             
+             
+             </div>
                  
             
             </div>

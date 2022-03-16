@@ -29,14 +29,14 @@ function OrderShow(status) {
         },
         "columns": [
             { "data": "name" },
-            { "data": "orderStatus" },
             { "data": "phon" },
+            { "data": "orderStatus" },
             { "data": "orderTotal" },
             {
-                "data": "OrderHeaderId",
+                "data": "orderHeaderId",
                 "render": function (data) {
                     return `                    
-                    <a href="/Admin/Order/OrderDetails?id=${data}"><i class="bi bi-pencil-square"></i></a>                      
+                    <a href="/Admin/Order/OrderDetails?OrderID=${data}"><i class="bi bi-pencil-square"></i></a>                      
                    `
                 }
             },

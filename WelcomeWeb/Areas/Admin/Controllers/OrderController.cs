@@ -6,7 +6,7 @@ using MyApp.Models;
 using MyApp.Models.ViewModel;
 using System.Security.Claims;
 
-namespace WelcomeWeb.Areas.Admin
+namespace WelcomeWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize]
@@ -58,15 +58,17 @@ namespace WelcomeWeb.Areas.Admin
         #endregion
 
 
-
-        public IActionResult OrderDetails(int id)
+        [HttpGet]
+        public IActionResult OrderDetails(int OrderID)
         {
+
             OrderVM orderVM = new OrderVM()
             {
-                orderHeader =  _unitofWork.OrderHeader.GetT(x=>x.OrderHeaderId==id, includeProperties:"Applicationuser"),
-                OrderDetail = _unitofWork.OrderDetail.GetAll(x=>x.Id==id, includeProperties:"Product")
+                orderHeader = _unitofWork.OrderHeader.GetT(x => x.OrderHeaderId == OrderID, includeProperties: "Applicationuser"),
+                OrderDetail = _unitofWork.OrderDetail.GetAll(x => x.Id == OrderID, includeProperties: "Product")
             };
-            return View();
+            return View(orderVM);
+        
         }
     }
 }

@@ -10,10 +10,12 @@
     </center>
 <div class="container justify-content-center mt-5 mb-5">
     <div class="row">
-        <div class="col-md-6"> <span><b>Shipping Details</b></span>
+        <div class="col-md-6"> 
                          
                  
-         <div class="card">                       
+         <div class="card">  
+              <div class="card-header py-2"><span><b>Shipping Details</b></span></div>
+             
                  <div class="card-body payment-card-body"> 
                      <span class="font-weight-normal card-text"><b>Name</b></span>
                      <div class="input"> <i class="fa fa-credit-card"></i> <input type="text" asp-for ="@Model.orderHeader.Name" class="form-control"> </div>
@@ -33,8 +35,10 @@
              
             
         </div>
-        <div class="col-md-6"> <span><b>Summary</b></span>
+        <div class="col-md-6"> 
             <div class="card">
+              <div class="card-header py-2"><span><b>Summary Details</b></span></div>
+
                 @foreach (var detail in Model.ListOfCart)
                 {
                     
