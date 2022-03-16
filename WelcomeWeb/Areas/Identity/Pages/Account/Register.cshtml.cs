@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using MyApp.CommonHelper;
+using MyApp.DataAccessLayer.Infrastructure.IRepository;
 using MyApp.Models;
 
 namespace WelcomeWeb.Areas.Identity.Pages.Account
@@ -32,13 +33,15 @@ namespace WelcomeWeb.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUnitofWork _unitofWork;
+
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender, RoleManager<IdentityRole> roleManager)
+            IEmailSender emailSender, RoleManager<IdentityRole> roleManager, IUnitofWork unitofWork)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -47,6 +50,7 @@ namespace WelcomeWeb.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _roleManager = roleManager;
+            _unitofWork = unitofWork;
         }
 
         /// <summary>
@@ -122,7 +126,19 @@ namespace WelcomeWeb.Areas.Identity.Pages.Account
                 _roleManager.CreateAsync(new IdentityRole(WebsiteRole.Role_User)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(WebsiteRole.Role_Employee)).GetAwaiter().GetResult();
             }
+            var users = _unitofWork.Application.GetAll();
+            foreach (var user in users)
+            {
+                if (user.Email == "superadmin@xyz.com")
+                {
+                    _userManager.AddToRoleAsync(user, WebsiteRole.Role_Admin).Wait();
+                }
+                else
+                {
+                    _userManager.AddToRoleAsync(user, WebsiteRole.Role_User).Wait();
 
+                }
+            }
 
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
