@@ -71,7 +71,9 @@ namespace WelcomeWeb.Areas.Admin.Controllers
             return View(orderVM);
 
         }
+
         [HttpPost]
+        [Authorize(Roles=WebsiteRole.Role_Admin+","+WebsiteRole.Role_Employee)]
         public IActionResult OrderDetails(OrderVM vM)
         {
             var orderHeader = _unitofWork.OrderHeader.GetT(x => x.OrderHeaderId == vM.orderHeader.OrderHeaderId);
@@ -95,6 +97,8 @@ namespace WelcomeWeb.Areas.Admin.Controllers
             return RedirectToAction("OrderDetails", "Order", new { id = vM.orderHeader.OrderHeaderId });
         }
 
+
+        [Authorize(Roles = WebsiteRole.Role_Admin + "," + WebsiteRole.Role_Employee)]
         public IActionResult InProcess(OrderVM vM)
         {
             _unitofWork.OrderHeader.UpdateStatus(vM.orderHeader.OrderHeaderId, OrderStatus.StatusInProcess);
@@ -104,6 +108,7 @@ namespace WelcomeWeb.Areas.Admin.Controllers
 
         }
 
+        [Authorize(Roles = WebsiteRole.Role_Admin + "," + WebsiteRole.Role_Employee)]
         public IActionResult Shipped(OrderVM vM)
         {
             var orderHeader = _unitofWork.OrderHeader.GetT(x => x.OrderHeaderId == vM.orderHeader.OrderHeaderId);
@@ -119,7 +124,7 @@ namespace WelcomeWeb.Areas.Admin.Controllers
 
         }
 
-
+        [Authorize(Roles = WebsiteRole.Role_Admin + "," + WebsiteRole.Role_Employee)]
         public IActionResult CancelOrder(OrderVM vM)
         {
             var orderHeader = _unitofWork.OrderHeader.GetT(x => x.OrderHeaderId == vM.orderHeader.OrderHeaderId);

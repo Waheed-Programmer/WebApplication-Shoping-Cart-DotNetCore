@@ -215,12 +215,19 @@
                     }
                     @if (Model.orderHeader.OrderStatus == OrderStatus.StatusInProcess)
                     {
-                        <button asp-action="Shipped" onclick="Validate()"  type ="submit" asp-controller="Order" class=" w-100 btn btn-success btn-block free-button mb-2">Ship Order</button>
+                        <button asp-action="Shipped" onclick="return Validate()"  type ="submit" asp-controller="Order" class=" w-100 btn btn-success btn-block free-button mb-2">Ship Order</button>
                     }
-                    @if (Model.orderHeader.OrderStatus != OrderStatus.StatusRefunded ||
+                    @if (Model.orderHeader.OrderStatus != OrderStatus.StatusRefunded &&
                                   Model.orderHeader.OrderStatus != OrderStatus.StatusCancelled)
                     {
-                        <button  type ="submit" class=" w-100 btn btn-dark btn-block free-button mb-2">Cancel Order</button>
+                        <button  type ="submit" asp-action="CancelOrder" class=" w-100 btn btn-dark btn-block free-button mb-2">Cancel Order</button>
+                    }
+                    else
+                    {
+                         @if (User.IsInRole(WebsiteRole.Role_User) || Model.orderHeader.OrderStatus != OrderStatus.StatusPending)
+                    {
+                        <button  type ="submit" asp-action="CancelOrder" class=" w-100 btn btn-dark btn-success free-button mb-2">Pay Now</button>
+                    }
                     }
 
 
