@@ -8,8 +8,8 @@ namespace MyApp.Models.ViewModel
 {
     public class OrderVM
     {
-        public OrderHeader orderHeader { get; set; }
-        public IEnumerable<OrderDetail> OrderDetail { get; set; }
+        public OrderHeader orderHeader { get; set; } = new OrderHeader();
+        public IEnumerable<OrderDetail> OrderDetail { get; set; } = new List<OrderDetail>();
 
     }
 }

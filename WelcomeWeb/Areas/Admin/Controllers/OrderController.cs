@@ -4,6 +4,7 @@ using MyApp.CommonHelper;
 using MyApp.DataAccessLayer.Infrastructure.IRepository;
 using MyApp.Models;
 using MyApp.Models.ViewModel;
+using Stripe;
 using System.Security.Claims;
 
 namespace WelcomeWeb.Areas.Admin.Controllers
@@ -114,6 +115,34 @@ namespace WelcomeWeb.Areas.Admin.Controllers
             _unitofWork.OrderHeader.Update(orderHeader);
             _unitofWork.Save();
             TempData["Save"] = "Order status Updated-Shipped";
+            return RedirectToAction("OrderDetails", "Order", new { id = vM.orderHeader.OrderHeaderId });
+
+        }
+
+
+        public IActionResult CancelOrder(OrderVM vM)
+        {
+            var orderHeader = _unitofWork.OrderHeader.GetT(x => x.OrderHeaderId == vM.orderHeader.OrderHeaderId);
+            if (orderHeader.PaymentStatus == PaymentStatus.StatusApproved)
+            {
+                var refund = new RefundCreateOptions
+                {
+                    Reason = RefundReasons.RequestedByCustomer,
+                    PaymentIntent = orderHeader.PaymentIntentId
+                };
+                var service = new RefundService();
+                Refund Refund = service.Create(refund);
+                _unitofWork.OrderHeader.UpdateStatus(vM.orderHeader.OrderHeaderId, OrderStatus.StatusCancelled, OrderStatus.StatusRefunded);
+
+
+            }
+            else
+            {
+                _unitofWork.OrderHeader.UpdateStatus(vM.orderHeader.OrderHeaderId, OrderStatus.StatusCancelled, OrderStatus.StatusCancelled);
+
+            }
+            _unitofWork.Save();
+            TempData["Save"] = "Order Cancelled";
             return RedirectToAction("OrderDetails", "Order", new { id = vM.orderHeader.OrderHeaderId });
 
         }

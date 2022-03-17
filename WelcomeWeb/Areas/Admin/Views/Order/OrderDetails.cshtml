@@ -167,12 +167,12 @@
                           }
                             
                         </div>
-                        @if(Model.orderHeader.SessionId!=null){
+                        
                         <span class="font-weight-normal card-text"><b>Payment Date</b></span>
-                     <div class="input"> 
+                        <div class="input"> 
                          <input readonly asp-for ="orderHeader.DateOfPayment" class="form-control">
                          </div>
-                         }
+                         
                          <span class="font-weight-normal card-text"><b>Payment Status</b></span>
                      <div class="input"> 
                          <input readonly asp-for ="orderHeader.PaymentStatus" class="form-control">
@@ -197,13 +197,13 @@
                 <div class="d-flex justify-content-between p-2">
                     <div class="d-flex flex-column p-2"> <span><b>Product</b></span>@detail.Product.ProductName </div>
                     <div class="d-flex flex-column p-2"><span class="super-month"><b>Qty</b></span> @detail.Count</div>
-                    <div class="d-flex flex-column p-2"><span class="super-month"><b>Price</b></span>@(((detail.Product.Price)*(detail.Count)).ToString("c")) </div>
+                    <div class="d-flex flex-column p-2"><span class="super-month"><b>Price</b></span>@(((detail.Price*detail.Count)).ToString("c")) </div>
                 
                
                 </div>}
                 <hr class="mt-0 line">
                <div class="p-3 d-flex justify-content-between">
-                    <div class="d-flex flex-column"> <span><b>Total Grand</b></span> <small></small> </div><b>@Model.orderHeader.OrderTotal.ToString("c")</b>
+                    @*<div class="d-flex flex-column"> <span><b>Total Grand</b></span> <small></small> </div><b>@Model.orderHeader.OrderTotal.ToString("c")</b>*@
                 </div> 
                          
                 <div class="p-3">
