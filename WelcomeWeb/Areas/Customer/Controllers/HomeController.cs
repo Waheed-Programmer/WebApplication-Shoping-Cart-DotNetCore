@@ -54,12 +54,16 @@ namespace WelcomeWeb.Controllers
                 if (cartItem == null)
                 {
                     _unitofWork.Cart.Add(cart);
+                    _unitofWork.Save();
+                    HttpContext.Session.SetInt32("SessionCart",_unitofWork
+                        .Cart.GetAll(x=>x.ApplicationUserId==claim.Value).ToList().Count);
                 }
                 else
                 {
                     _unitofWork.Cart.IncreamentCartItem(cartItem, cart.Count);
+                    _unitofWork.Save();
+
                 }
-                _unitofWork.Save();
             }
             
             return RedirectToAction("Index");

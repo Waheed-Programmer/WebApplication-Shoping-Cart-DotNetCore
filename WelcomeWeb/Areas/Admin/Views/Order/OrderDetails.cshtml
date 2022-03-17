@@ -222,16 +222,17 @@
                     {
                         <button  type ="submit" asp-action="CancelOrder" class=" w-100 btn btn-dark btn-block free-button mb-2">Cancel Order</button>
                     }
+                    
+                }
                     else
                     {
-                         @if (User.IsInRole(WebsiteRole.Role_User) || Model.orderHeader.OrderStatus != OrderStatus.StatusPending)
+                     @if (User.IsInRole(WebsiteRole.Role_User) || Model.orderHeader.OrderStatus != OrderStatus.StatusPending && Model.orderHeader.OrderStatus != OrderStatus.StatusApproved)
                     {
                         <button  type ="submit" asp-action="PayNow" class=" w-100 btn btn-dark btn-success free-button mb-2">Pay Now</button>
                     }
                     }
 
-
-                }
+                
 
              
              </div>
