@@ -5,6 +5,7 @@ using MyApp.DataAccessLayer.Infrastructure.IRepository;
 using MyApp.Models;
 using MyApp.Models.ViewModel;
 using Stripe;
+using Stripe.Checkout;
 using System.Security.Claims;
 
 namespace WelcomeWeb.Areas.Admin.Controllers
@@ -151,5 +152,57 @@ namespace WelcomeWeb.Areas.Admin.Controllers
             return RedirectToAction("OrderDetails", "Order", new { id = vM.orderHeader.OrderHeaderId });
 
         }
+        
+        public IActionResult PayNow(OrderVM vm)
+        {
+
+            var orderHeader = _unitofWork.OrderHeader.GetT(x => x.OrderHeaderId == vm.orderHeader.OrderHeaderId, includeProperties: "Applicationuser");
+            var OrderDetail = _unitofWork.OrderDetail.GetAll(x => x.Id == vm.orderHeader.OrderHeaderId, includeProperties: "Product");
+
+            //Apply payment method
+            var domain = "https://localhost:7207/";
+            var options = new SessionCreateOptions
+            {
+                LineItems = new List<SessionLineItemOptions>(),
+                Mode = "payment",
+                SuccessUrl = domain + $"customer/cart/OrderSuccess?id={vm.orderHeader.OrderHeaderId}",
+                CancelUrl = domain + $"customer/cart/index",
+            };
+
+            foreach (var item in OrderDetail)
+            {
+
+                var lieItemoptions = new SessionLineItemOptions
+                {
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
+                        UnitAmount = (long)(item.Product.Price * 100),
+                        Currency = "usd",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                        {
+                            Name = item.Product.ProductName,
+                        },
+
+
+                    },
+                    Quantity = item.Count,
+
+
+                };
+                options.LineItems.Add(lieItemoptions);
+            }
+
+            var service = new SessionService();
+            Session session = service.Create(options);
+
+            _unitofWork.OrderHeader.PaymentStatus(vm.orderHeader.OrderHeaderId, session.Id, session.PaymentIntentId);
+            _unitofWork.Save();
+            
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(303);
+            return RedirectToAction("Index", "Home");
+        }
+
+
     }
 }

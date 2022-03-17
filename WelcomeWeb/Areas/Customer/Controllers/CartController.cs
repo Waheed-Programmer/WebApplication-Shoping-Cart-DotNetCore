@@ -140,12 +140,13 @@ namespace WelcomeWeb.Areas.Customer.Controllers
             _unitofWork.OrderHeader.PaymentStatus(tCart.orderHeader.OrderHeaderId, session.Id, session.PaymentIntentId);
             _unitofWork.Save();
 
+            _unitofWork.Cart.DeleteRange(tCart.ListOfCart);
+            _unitofWork.Save();
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
 
 
-            _unitofWork.Cart.DeleteRange(tCart.ListOfCart);
-            _unitofWork.Save();
+            
             return RedirectToAction("Index","Home");
 
 
