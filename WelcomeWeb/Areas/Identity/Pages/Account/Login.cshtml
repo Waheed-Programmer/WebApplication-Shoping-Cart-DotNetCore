@@ -1,15 +1,13 @@
 ﻿@page
 @model LoginModel
 
-@{
-    ViewData["Title"] = "Log in";
-}
 
-
-    <div class="col-md-4 justify-content-center mt-3">
-        <section>
-            <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
+<div class="container h-100 d-flex justify-content-center">
+<div class="card mt-4" style="width: 25rem;">
+  <img src="~/login.png" style="height:10rem;" class="card-img-top" alt="...">
+  <div class="card-body">
+   <form id="account" method="post">
+               
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
@@ -45,6 +43,12 @@
                     </p>*@
                 </div>
             </form>
+  </div>
+</div>
+</div>
+    <div class="col-md-4 justify-content-center mt-3">
+        <section>
+            
         </section>
     </div>
    @* <div class="col-md-6 col-md-offset-2">

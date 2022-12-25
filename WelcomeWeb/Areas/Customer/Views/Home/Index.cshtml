@@ -3,20 +3,38 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<br /><br />
-<div class ="row">
-@foreach (var item in Model)
-{
+<br />
+<br />
+<div class="container">
+<div class="row">
 
-    <div class="card py-2" style="width: 18rem;">
-  <img class="card-img-top" src="@item.ImgUrl" height=150px; width=150px; alt="Card image cap">
-  <hr />
-  <div class="card-body">
-    <h5 class="card-title">@item.ProductName</h5>
-    <p class="card-text">Price:@item.Price.ToString("0.00")</p>
-    <a asp-action="Detail" asp-controller="Home" asp-route-ProductId = "@item.ProductId" class="w-100 btn btn-lg btn-primary mt-3">Detail</a>
-  </div>
+    @foreach (var item in Model)
+    {
+        <div class="card-deck mb-4" style="width: 17rem;">
+
+            <div class="card text-center">
+                <div class="card-body">
+            <img class="card-img-top" src="@item.ImgUrl" height=150px; width=150px; alt="Card image cap"><hr/>
+                    <h4 class="card-title">@item.ProductName</h4>
+                    <p class="card-text">
+                        Price:@item.Price.ToString("0.00")
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Detail" asp-controller="Home" asp-route-ProductId="@item.ProductId" class="w-100 btn btn-lg btn-primary mt-3">Detail</a>
+
+                </div>
+            </div>
+            @*<div class="card-deck" style="width: 16rem;">
+                <hr />
+                <div class="card-body">
+                <h5 class="card-title">@item.ProductName</h5>
+                <p class="card-text">Price:@item.Price.ToString("0.00")</p>
+                </div>
+                </div>*@
+        </div>
+    }
+
 </div>
-}
 </div>
 
